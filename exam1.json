@@ -594,10 +594,9 @@
   },
   {
     "domain": "PromQL",
-    "question": "Let cert_expiry be a gauge metric whose value is a Unix timestamp (epoch time) representing the time a given certificate will expire.",
+    "question": "Let cert_expiry be a gauge metric whose value is a Unix timestamp (epoch time) representing the time a given certificate will expire. Which of the following queries gives the time in days until certificate expiration?",
     "correct_answer": "(cert_expiry – time()) / 86400",
     "incorrect_answers": [
-      "Which of the following queries gives the time in days until certificate expiration?",
       "cert_expiry - time(\"d\")",
       "No such query exists",
       "cert_expiry / 86400 – time.now.days()"
