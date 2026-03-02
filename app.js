@@ -136,7 +136,7 @@ function resetAll() {
   state = {
     mode: $("mode").value,
     version: $("version").value,
-    count: parseInt($("count").value, 10),
+    count: (Number.isFinite(parseInt($("count").value, 10)) ? parseInt($("count").value, 10) : 60),
     studyMode: $("studyMode").value,
     examFile: $("examFile")?.value || "exam1.json",
     examQs: [],
@@ -421,7 +421,7 @@ async function startExam() {
 
   // If count says "All", use length; otherwise respect number
   const desiredCount = state.count;
-  const finalCount = desiredCount >= allQs.length ? allQs.length : desiredCount;
+  const finalCount = (Number.isFinite(desiredCount) ? Math.min(desiredCount, allQs.length) : allQs.length);
 
   state.examQs = buildExamSet(allQs, state.version, finalCount);
 
