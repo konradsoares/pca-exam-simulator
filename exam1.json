@@ -362,10 +362,9 @@
   },
   {
     "domain": "PromQL",
-    "question": "Let a Node Exporter scrape job be denoted by the label job=\"node\". Let there be two static instances for this job, instance=\"node1\" and instance=\"node2\".",
+    "question": "Let a Node Exporter scrape job be denoted by the label job=\"node\". Let there be two static instances for this job, instance=\"node1\" and instance=\"node2\". Which of the following queries returns a 1 when both nodes are currently being scraped successfully and a 0 otherwise?",
     "correct_answer": "min(up{job=\"node\"})",
     "incorrect_answers": [
-      "Which of the following queries returns a 1 when both nodes are currently being scraped successfully and a 0 otherwise?",
       "max(up{job=\"node\"})",
       "up{job=\"node\",instance=\"node1\"} + up{job=\"node\",instance=\"node2\"}",
       "min_over_time(up{job=\"node\"})"
@@ -373,10 +372,9 @@
   },
   {
     "domain": "Prometheus Fundamentals",
-    "question": "You have configured the Elastic Kubernetes Service on AWS and have deployed Node Exporter to each of the hosts and configured it to be managed by systemd.",
+    "question": "You have configured the Elastic Kubernetes Service on AWS and have deployed Node Exporter to each of the hosts and configured it to be managed by systemd. Which of the following service discovery methods should you use to configure a Prometheus scrape for Node Exporter?",
     "correct_answer": "ec2_sd_configs",
     "incorrect_answers": [
-      "Which of the following service discovery methods should you use to configure a Prometheus scrape for Node Exporter?",
       "static_sd_configs",
       "kubernetes_sd_configs",
       "file_sd_configs"
@@ -404,10 +402,9 @@
   },
   {
     "domain": "Instrumentation and Exporters",
-    "question": "You are instrumenting an application called agate for Prometheus. This application has a subsystem called remed that handles automated script-based remediations. You want to define a metric that gives the number of remediation processes currently running.",
+    "question": "You are instrumenting an application called agate for Prometheus. This application has a subsystem called remed that handles automated script-based remediations. You want to define a metric that gives the number of remediation processes currently running. Which of the following is the most appropriate “fully-qualified” metric name?",
     "correct_answer": "agate_remed_processes_running",
     "incorrect_answers": [
-      "Which of the following is the most appropriate “fully-qualified” metric name?",
       "agate-remed-processes-running",
       "processes_running",
       "remed_processes_running"
@@ -608,24 +605,9 @@
   },
   {
     "domain": "Alerting & Dashboarding",
-    "question": "Consider the following Alertmanager routing configuration.",
+    "question": "Consider the following Alertmanager routing configuration. route: receiver: a-team-email routes: - receiver: a-team-page matchers: - severity=~high|critical - receiver: b-team-email - service=\"db\" - receiver: b-team-page - env=prod Given an alert with the following labels, to which receiver will the alert be routed? alertname: database-down env: test service: db severity: low",
     "correct_answer": "b-team-email",
     "incorrect_answers": [
-      "route:",
-      "receiver: a-team-email",
-      "routes:",
-      "- receiver: a-team-page",
-      "matchers:",
-      "- severity=~\"high|critical\"",
-      "- receiver: b-team-email",
-      "- service=\"db\"",
-      "- receiver: b-team-page",
-      "- env=\"prod\"",
-      "Given an alert with the following labels, to which receiver will the alert be routed?",
-      "alertname: database-down",
-      "env: test",
-      "service: db",
-      "severity: low",
       "a-team-page",
       "b-team-page",
       "a-team-email"
