@@ -5,9 +5,10 @@ let state = {
   mode: "timed",
   version: "A",
   count: 120,
+  studyMode: "normal",
   examQs: [],
-  answers: {},     // qid -> { selected: "...", correct: boolean, locked: boolean, expired: boolean }
-  timers: {},      // qid -> intervalId
+  answers: {},
+  timers: {},
   currentIndex: 0,
 };
 
@@ -179,6 +180,10 @@ function renderQuestionCard(q, showTimer) {
 
   const timerSlot = showTimer ? `<span class="timer" id="timer_${q.id}">01:30</span>` : "";
 
+  const showAll = state.studyMode === "show_all_answers";
+  const ansHiddenClass = showAll ? "" : "hidden";
+  const btnLabel = showAll ? "Hide answer" : "Show answer";
+
   return `
     <div class="qcard ${locked ? "locked" : ""}" data-qid="${q.id}">
       <div class="qhead">
@@ -197,9 +202,10 @@ function renderQuestionCard(q, showTimer) {
       </div>
 
       <div class="row" style="margin-top:10px;">
-        <button type="button" class="secondary" data-show-answer="${q.id}">Show answer</button>
+        <button type="button" class="secondary" data-show-answer="${q.id}">${btnLabel}</button>
       </div>
-      <div id="ans_${q.id}" class="card hidden" style="margin-top:10px;">
+
+      <div id="ans_${q.id}" class="card ${ansHiddenClass}" style="margin-top:10px;">
         <div class="muted small">Official answer:</div>
         <div><strong>${escapeHtml(q.answer || "(no answer in dataset)")}</strong></div>
         ${selected ? `<div class="muted small" style="margin-top:8px;">Your answer: ${escapeHtml(selected)}</div>` : ""}
@@ -304,6 +310,22 @@ function renderUntimed() {
   attachQuestionHandlers(exam);
 }
 
+
+function autoAnswerAllCorrect() {
+  for (const q of state.examQs) {
+    state.answers[q.id] = {
+      selected: q.answer,
+      correct: true,
+      locked: true,
+      expired: false
+    };
+  }
+  // stop any timers just in case
+  for (const k of Object.keys(state.timers)) clearInterval(state.timers[k]);
+  state.timers = {};
+}
+
+
 function showResults() {
   // stop all timers
   for (const k of Object.keys(state.timers)) {
@@ -375,8 +397,14 @@ async function startExam() {
   state.mode = $("mode").value;
   state.version = $("version").value;
   state.count = parseInt($("count").value, 10);
+  state.studyMode = $("studyMode").value;
 
   state.examQs = buildExamSet(DATA.questions, state.version, state.count);
+
+  // If study mode is auto-answer, do it immediately
+  if (state.studyMode === "auto_answer_all") {
+    autoAnswerAllCorrect();
+  }
 
   if (state.mode === "timed") renderTimed();
   else renderUntimed();
