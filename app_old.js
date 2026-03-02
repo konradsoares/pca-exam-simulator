@@ -4,9 +4,8 @@ let DATA = null;
 let state = {
   mode: "timed",
   version: "A",
-  count: 60,
+  count: 120,
   studyMode: "normal",
-  examFile: "exam1.json",
   examQs: [],
   answers: {},
   timers: {},
@@ -15,11 +14,10 @@ let state = {
 
 const $ = (id) => document.getElementById(id);
 
-async function loadQuestions(examFile) {
-  const res = await fetch(examFile);
-  if (!res.ok) throw new Error(`Failed to load ${examFile}`);
+async function loadQuestions() {
+  const res = await fetch("questions.json");
+  if (!res.ok) throw new Error("Failed to load questions.json");
   DATA = await res.json();
-  return DATA;
 }
 
 function shuffle(arr) {
@@ -35,72 +33,17 @@ function pickN(arr, n) {
   return arr.slice(0, Math.min(n, arr.length));
 }
 
-function escapeHtml(s) {
-  return (s ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-/**
- * Supports both of these JSON shapes:
- * 1) { questions: [...] }
- * 2) [ ... ] (array of question objects)
- *
- * Expected input question object (your new format):
- * { domain, question, correct_answer, incorrect_answers }
- *
- * Normalized output:
- * { id, domain, question, answer, incorrect_answers }
- */
-function normalizeQuestions(payload) {
-  const raw = Array.isArray(payload) ? payload : (payload?.questions ?? []);
-
-  const out = [];
-  const domainCounters = {};
-  for (let i = 0; i < raw.length; i++) {
-    const q = raw[i] || {};
-    const domain = q.domain ?? q.dominio ?? "General";
-    const question = q.question ?? q.pergunta ?? "";
-    const answer = q.correct_answer ?? q.answer ?? null;
-    const incorrect = q.incorrect_answers ?? [];
-
-    if (!domainCounters[domain]) domainCounters[domain] = 0;
-    domainCounters[domain] += 1;
-
-    // make an id if not present
-    const slug = String(domain).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-    const id = q.id ?? `${slug || "q"}-${String(domainCounters[domain]).padStart(3, "0")}`;
-
-    out.push({
-      id,
-      domain,
-      question,
-      answer,
-      incorrect_answers: Array.isArray(incorrect) ? incorrect : [],
-    });
-  }
-  return out.filter(x => x.question && x.answer); // ignore malformed rows
-}
-
-// Build choices from the provided incorrect answers (randomized) + correct answer
-function buildChoicesFromProvided(q) {
-  const incorrect = Array.isArray(q.incorrect_answers) ? q.incorrect_answers : [];
-  // Remove duplicates + remove correct answer if it somehow appears in incorrect
+// Build choices: correct + 3 distractors (answers from same domain)
+function buildChoices(q, pool) {
+  const sameDomain = pool.filter(x => x.domain === q.domain && x.id !== q.id && x.answer && x.answer !== q.answer);
+  const distractors = shuffle(sameDomain).map(x => x.answer);
   const uniq = [];
-  for (const opt of incorrect) {
-    const t = String(opt ?? "").trim();
-    if (!t) continue;
-    if (t === q.answer) continue;
-    if (!uniq.includes(t)) uniq.push(t);
+  for (const a of distractors) {
+    if (!uniq.includes(a)) uniq.push(a);
+    if (uniq.length === 3) break;
   }
-
-  // PCA-style question usually has 4 options; if fewer, keep what's available
-  const pickedIncorrect = pickN(shuffle(uniq), 3);
-
-  return shuffle([q.answer, ...pickedIncorrect]);
+  const choices = shuffle([q.answer, ...uniq]);
+  return choices;
 }
 
 function buildExamSet(all, version, count) {
@@ -123,28 +66,29 @@ function buildExamSet(all, version, count) {
 
   selected = pickN(selected, count);
 
-  // attach randomized choices
-  return selected.map(q => ({
+  // attach choices
+  const enriched = selected.map(q => ({
     ...q,
-    choices: buildChoicesFromProvided(q)
+    choices: buildChoices(q, qs)
   }));
+
+  return enriched;
 }
 
 function resetAll() {
-  for (const k of Object.keys(state.timers)) clearInterval(state.timers[k]);
-
+  // clear timers
+  for (const k of Object.keys(state.timers)) {
+    clearInterval(state.timers[k]);
+  }
   state = {
     mode: $("mode").value,
     version: $("version").value,
     count: parseInt($("count").value, 10),
-    studyMode: $("studyMode").value,
-    examFile: $("examFile")?.value || "exam1.json",
     examQs: [],
     answers: {},
     timers: {},
     currentIndex: 0,
   };
-
   $("exam").classList.add("hidden");
   $("results").classList.add("hidden");
   $("exam").innerHTML = "";
@@ -156,13 +100,14 @@ function lockQuestion(qid, { expired=false } = {}) {
   state.answers[qid].locked = true;
   state.answers[qid].expired = expired;
 
+  // stop timer if any
   if (state.timers[qid]) {
     clearInterval(state.timers[qid]);
     delete state.timers[qid];
   }
 }
 
-function renderChoice(q, choiceText) {
+function renderChoice(q, idx, choiceText) {
   const qid = q.id;
   const a = state.answers[qid];
   const locked = a?.locked;
@@ -178,6 +123,15 @@ function renderChoice(q, choiceText) {
   `;
 }
 
+function escapeHtml(s) {
+  return (s ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
 function attachQuestionHandlers(container) {
   container.querySelectorAll("input[type=radio]").forEach(inp => {
     inp.addEventListener("change", (e) => {
@@ -185,6 +139,7 @@ function attachQuestionHandlers(container) {
       const q = state.examQs.find(x => x.id === qid);
       if (!q) return;
 
+      // if already locked, ignore
       if (state.answers[qid]?.locked) return;
 
       const selected = e.target.value;
@@ -193,8 +148,12 @@ function attachQuestionHandlers(container) {
       state.answers[qid] = { selected, correct, locked: false, expired: false };
       lockQuestion(qid);
 
-      if (state.mode === "timed") renderTimed();
-      else renderUntimed();
+      // re-render current view so options disable immediately
+      if (state.mode === "timed") {
+        renderTimed();
+      } else {
+        renderUntimed(); // simple but re-renders; ok for 120 Q
+      }
     });
   });
 
@@ -239,7 +198,7 @@ function renderQuestionCard(q, showTimer) {
       </div>
 
       <div class="choices">
-        ${q.choices.map(c => renderChoice(q, c)).join("")}
+        ${q.choices.map((c, i) => renderChoice(q, i, c)).join("")}
       </div>
 
       <div class="row" style="margin-top:10px;">
@@ -248,7 +207,7 @@ function renderQuestionCard(q, showTimer) {
 
       <div id="ans_${q.id}" class="card ${ansHiddenClass}" style="margin-top:10px;">
         <div class="muted small">Official answer:</div>
-        <div><strong>${escapeHtml(q.answer)}</strong></div>
+        <div><strong>${escapeHtml(q.answer || "(no answer in dataset)")}</strong></div>
         ${selected ? `<div class="muted small" style="margin-top:8px;">Your answer: ${escapeHtml(selected)}</div>` : ""}
       </div>
     </div>
@@ -257,6 +216,8 @@ function renderQuestionCard(q, showTimer) {
 
 function startTimerForQuestion(q) {
   const qid = q.id;
+
+  // If already answered/locked, don’t start timer
   if (state.answers[qid]?.locked) return;
 
   let remaining = EXAM_SECONDS_PER_Q;
@@ -270,9 +231,13 @@ function startTimerForQuestion(q) {
     remaining -= 1;
 
     if (remaining < 0) {
+      // time expired
       lockQuestion(qid, { expired: true });
+
+      // re-render so inputs disable
       renderTimed();
 
+      // auto-advance if not last
       if (state.currentIndex < state.examQs.length - 1) {
         state.currentIndex += 1;
         renderTimed();
@@ -309,11 +274,14 @@ function renderTimed() {
     </section>
   `;
 
+  // nav handlers
   $("prevBtn").onclick = () => { state.currentIndex -= 1; renderTimed(); };
   $("nextBtn").onclick = () => { state.currentIndex += 1; renderTimed(); };
   $("finishBtn").onclick = () => showResults();
 
   attachQuestionHandlers(exam);
+
+  // start timer for current question
   startTimerForQuestion(q);
 }
 
@@ -342,6 +310,7 @@ function renderUntimed() {
   attachQuestionHandlers(exam);
 }
 
+
 function autoAnswerAllCorrect() {
   for (const q of state.examQs) {
     state.answers[q.id] = {
@@ -351,12 +320,17 @@ function autoAnswerAllCorrect() {
       expired: false
     };
   }
+  // stop any timers just in case
   for (const k of Object.keys(state.timers)) clearInterval(state.timers[k]);
   state.timers = {};
 }
 
+
 function showResults() {
-  for (const k of Object.keys(state.timers)) clearInterval(state.timers[k]);
+  // stop all timers
+  for (const k of Object.keys(state.timers)) {
+    clearInterval(state.timers[k]);
+  }
   state.timers = {};
 
   const total = state.examQs.length;
@@ -407,24 +381,27 @@ function showResults() {
         </div>`;
       }).join("")}
     </div>
+
+    <p class="muted small">Tip: use “Show answer” on questions to review.</p>
   `;
 
+  // Scroll to results
   results.scrollIntoView({ behavior: "smooth" });
 }
 
 async function startExam() {
   resetAll();
 
-  // Load the selected exam file every time (supports multiple exams)
-  const payload = await loadQuestions(state.examFile);
-  const allQs = normalizeQuestions(payload);
+  if (!DATA) await loadQuestions();
 
-  // If count says "All", use length; otherwise respect number
-  const desiredCount = state.count;
-  const finalCount = desiredCount >= allQs.length ? allQs.length : desiredCount;
+  state.mode = $("mode").value;
+  state.version = $("version").value;
+  state.count = parseInt($("count").value, 10);
+  state.studyMode = $("studyMode").value;
 
-  state.examQs = buildExamSet(allQs, state.version, finalCount);
+  state.examQs = buildExamSet(DATA.questions, state.version, state.count);
 
+  // If study mode is auto-answer, do it immediately
   if (state.studyMode === "auto_answer_all") {
     autoAnswerAllCorrect();
   }
@@ -433,25 +410,11 @@ async function startExam() {
   else renderUntimed();
 }
 
-// Wire buttons
 $("startBtn").addEventListener("click", startExam);
 $("resetBtn").addEventListener("click", resetAll);
 
-// When exam file changes, update the default count dropdown based on file size (best-effort)
-$("examFile")?.addEventListener("change", async () => {
-  try {
-    const payload = await loadQuestions($("examFile").value);
-    const allQs = normalizeQuestions(payload);
-    // If the count select has an "All" option, update its label
-    const countSel = $("count");
-    if (countSel) {
-      const allOpt = Array.from(countSel.options).find(o => o.value === "all");
-      if (allOpt) allOpt.textContent = `All (${allQs.length})`;
-    }
-  } catch (e) {
-    console.warn(e);
-  }
+// initial load
+loadQuestions().catch(err => {
+  console.error(err);
+  alert("Failed to load questions.json. Make sure it exists in the repo root.");
 });
-
-// Initial hint load for exam1.json (optional). If it fails, UI still works.
-loadQuestions("exam1.json").catch(() => {});
