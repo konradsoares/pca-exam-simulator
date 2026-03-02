@@ -605,7 +605,7 @@
   },
   {
     "domain": "Alerting & Dashboarding",
-    "question": "Consider the following Alertmanager routing configuration. route: receiver: a-team-email routes: - receiver: a-team-page matchers: - severity=~high|critical - receiver: b-team-email - service=\"db\" - receiver: b-team-page - env=prod Given an alert with the following labels, to which receiver will the alert be routed? alertname: database-down env: test service: db severity: low",
+    "question": "Consider the following Alertmanager routing configuration. route: receiver: a-team-email routes: - receiver: a-team-page matchers: - severity=~high|critical - receiver: b-team-email - service=db - receiver: b-team-page - env=prod Given an alert with the following labels, to which receiver will the alert be routed? alertname: database-down env: test service: db severity: low",
     "correct_answer": "b-team-email",
     "incorrect_answers": [
       "a-team-page",
