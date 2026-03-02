@@ -1,0 +1,32 @@
+:root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 16px; }
+.hidden { display: none; }
+.muted { color: #555; }
+.small { font-size: 0.9rem; }
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 14px;
+  margin: 14px 0;
+  background: #fff;
+}
+
+.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+label { display: flex; flex-direction: column; gap: 6px; min-width: 220px; }
+select, button { padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+button { cursor: pointer; }
+button.secondary { background: #f3f3f3; }
+
+.qcard { border: 1px solid #e3e3e3; border-radius: 10px; padding: 14px; margin: 12px 0; }
+.qhead { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.timer { font-weight: 700; }
+.locked { opacity: 0.85; }
+.choices { margin-top: 10px; display: grid; gap: 8px; }
+.choice { display: flex; gap: 8px; align-items: flex-start; }
+
+.badge { font-size: 0.85rem; padding: 4px 8px; border-radius: 999px; border: 1px solid #ddd; background: #fafafa; }
+.correct { border-color: #18a558; }
+.wrong { border-color: #c62828; }
+
+hr { border: none; border-top: 1px solid #eee; margin: 14px 0; }

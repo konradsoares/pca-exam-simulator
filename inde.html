@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PCA Exam Simulator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="wrap">
+    <h1>PCA Exam Simulator</h1>
+    <p class="muted">Prometheus Certified Associate practice — based on your question/answer doc.</p>
+
+    <section class="card">
+      <h2>Start</h2>
+      <div class="row">
+        <label>
+          Exam mode:
+          <select id="mode">
+            <option value="timed">Timed (90s per question)</option>
+            <option value="untimed">Untimed (all questions)</option>
+          </select>
+        </label>
+
+        <label>
+          Exam version:
+          <select id="version">
+            <option value="A">Version A (shuffle all)</option>
+            <option value="B">Version B (shuffle per domain)</option>
+          </select>
+        </label>
+
+        <label>
+          Questions:
+          <select id="count">
+            <option value="20">20</option>
+            <option value="40">40</option>
+            <option value="60">60</option>
+            <option value="120" selected>All (120)</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="row">
+        <button id="startBtn">Start Exam</button>
+        <button id="resetBtn" class="secondary">Reset</button>
+      </div>
+
+      <p class="muted small">
+        Rules: once you answer, it locks. Timed mode auto-locks when time expires.
+      </p>
+    </section>
+  </header>
+
+  <main class="wrap">
+    <section id="exam" class="hidden"></section>
+
+    <section id="results" class="card hidden"></section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

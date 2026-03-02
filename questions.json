@@ -1,0 +1,726 @@
+{
+  "title": "PCA Exam Simulator",
+  "version": "1.0",
+  "questions": [
+    {
+      "id": "observ-001",
+      "domain": "Observability Concepts",
+      "question": "What is the preferred approach used by Prometheus to collect metrics from a target?",
+      "answer": "pull-based"
+    },
+    {
+      "id": "observ-002",
+      "domain": "Observability Concepts",
+      "question": "What is the Observability?",
+      "answer": "Observability: understand what’s happening inside a system and predict how it will behave in the future"
+    },
+    {
+      "id": "observ-003",
+      "domain": "Observability Concepts",
+      "question": "What is RED Method?",
+      "answer": "RED Method consists of: (Request) Rate + (Request) Errors + (Request) Duration"
+    },
+    {
+      "id": "observ-004",
+      "domain": "Observability Concepts",
+      "question": "What are the distinctions between SLO, SLI, and SLA?",
+      "answer": "SLO: Service Level Objective (Goal), SLA: Service Level Agreement (Contract), SLI: Service Level Indicator (Metrics)"
+    },
+    {
+      "id": "observ-005",
+      "domain": "Observability Concepts",
+      "question": "In the context of tracing, what is the meaning or representation of a span?",
+      "answer": "Span is a single operation/unit of work within a distributed system and captures the start and end times, duration, and associated metadata of a specific operation"
+    },
+    {
+      "id": "observ-006",
+      "domain": "Observability Concepts",
+      "question": "In which scenarios is distributed tracing less beneficial or NOT as applicable?",
+      "answer": "for monolith system"
+    },
+    {
+      "id": "observ-007",
+      "domain": "Observability Concepts",
+      "question": "What are typically tracked within a span of a trace?",
+      "answer": "Operation Name, Trace ID and Span ID, Start and End Timestamps, Duration, Parent Span ID"
+    },
+    {
+      "id": "observ-008",
+      "domain": "Observability Concepts",
+      "question": "What is the good and bad metric?",
+      "answer": "bad: a metric with a lot fo variance and poor correlation with user experience, good: metric to set easier threashold for bcs there is no overlap at all."
+    },
+    {
+      "id": "observ-009",
+      "domain": "Observability Concepts",
+      "question": "Which type of data is monitored by Prometheus?",
+      "answer": "Metrics (numeric value)"
+    },
+    {
+      "id": "observ-010",
+      "domain": "Observability Concepts",
+      "question": "In the context of monitoring and observability, what type of data is typically used to define a SLI?",
+      "answer": "SLI is typically derived from metrics"
+    },
+    {
+      "id": "observ-011",
+      "domain": "Observability Concepts",
+      "question": "What is the meaning or purpose of an error budget policy?",
+      "answer": "An error budget policy is a concept used in the context of SLOs and SLAs and is to define the acceptable level of errors or service disruptions that a system or service can experience within a given time period."
+    },
+    {
+      "id": "observ-012",
+      "domain": "Observability Concepts",
+      "question": "What is one advantage of the push model for recoring metrics compared to pull models?",
+      "answer": "timely and proactive data collection (real-time or near real-time) / pushing into the centralized data system"
+    },
+    {
+      "id": "observ-013",
+      "domain": "Observability Concepts",
+      "question": "How do Prometheus, ELK stack, and InfluxDB differ in terms of their functionalities and use cases?",
+      "answer": "InfluxDB is a pull-based time-series database designed to handle high volumes of time-stamped data (IoT, Sensor, Analytics)."
+    },
+    {
+      "id": "observ-014",
+      "domain": "Observability Concepts",
+      "question": "What is the definition of a metric?",
+      "answer": "ELK stack is a push-based system, used for collecting, processing, storing, and visualizing log data."
+    },
+    {
+      "id": "observ-015",
+      "domain": "Observability Concepts",
+      "question": "What are the Prometheus exemplars?",
+      "answer": "Prometheus is a pull-based time-series database and monitoring system specifically designed for monitoring dynamic cloud-native environments."
+    },
+    {
+      "id": "observ-016",
+      "domain": "Observability Concepts",
+      "question": "What is one of the main purposes or goals of logging?",
+      "answer": "numeric time-series data point"
+    },
+    {
+      "id": "observ-017",
+      "domain": "Observability Concepts",
+      "question": "What are the 3 core components of observability?",
+      "answer": "An exemplar is a specific trace representative of measurement taken in a given time interval and provides additional information about a specific data point."
+    },
+    {
+      "id": "observ-018",
+      "domain": "Observability Concepts",
+      "question": "What is the Monitoring",
+      "answer": "To gather and aggregate textual event data from a service for troubleshooting"
+    },
+    {
+      "id": "observ-019",
+      "domain": "Observability Concepts",
+      "question": "What is the Telemetry?",
+      "answer": "Logging, Trace and Metrics"
+    },
+    {
+      "id": "observ-020",
+      "domain": "Observability Concepts",
+      "question": "What is the challenges of observability?",
+      "answer": "Monitoring: continues observation of a system to detect and alert on abnormal behavior."
+    },
+    {
+      "id": "promet-001",
+      "domain": "Prometheus Fundamentals",
+      "question": "What is the CLI utility tool for Prometheus called?",
+      "answer": "promtool"
+    },
+    {
+      "id": "promet-002",
+      "domain": "Prometheus Fundamentals",
+      "question": "What are the limitations of Prometheus?",
+      "answer": "scalability for large-scale deployments with millions of TS, Long-term storage, High cardinality, HA and Replication"
+    },
+    {
+      "id": "promet-003",
+      "domain": "Prometheus Fundamentals",
+      "question": "What is Service Discovery and which categories are there?",
+      "answer": "SD is a mechanism that allow to automatically discover and monitor targets and services. There are 2 categories: top-down (e.i. ec2) and bottom-up (e.i. consol) mechanisms of static SD"
+    },
+    {
+      "id": "promet-004",
+      "domain": "Prometheus Fundamentals",
+      "question": "Which property configures the timing to scrape metrics from targets?",
+      "answer": "scrape_interval"
+    },
+    {
+      "id": "promet-005",
+      "domain": "Prometheus Fundamentals",
+      "question": "Which section in the Prometheus configuration file governs the selection of targets to be scraped?",
+      "answer": "scrape_configs"
+    },
+    {
+      "id": "promet-006",
+      "domain": "Prometheus Fundamentals",
+      "question": "Which action in the label configuration is used to delete a specific target?",
+      "answer": "scrape_configs -> relabel_configs -> action: drop or action: keep"
+    },
+    {
+      "id": "promet-007",
+      "domain": "Prometheus Fundamentals",
+      "question": "How is managed data retention in prometheus?",
+      "answer": "with the flag --storage.tsdb.retention.time and --storage.tsdb.retention.size"
+    },
+    {
+      "id": "promet-008",
+      "domain": "Prometheus Fundamentals",
+      "question": "What are the essential 3 components of Prometheus?",
+      "answer": "Retrieval, TSDB, HTTP Server"
+    },
+    {
+      "id": "promet-009",
+      "domain": "Prometheus Fundamentals",
+      "question": "What is required to be able to reload Prometheus?",
+      "answer": "with the flag --web.enable-lifecycle"
+    },
+    {
+      "id": "promet-010",
+      "domain": "Prometheus Fundamentals",
+      "question": "What are 3 methods to restart the Prometheus server?",
+      "answer": "Sending a SIGHUP signal to the Prometheus process, Using the Prometheus API POST or PUT + /-/reload, Using a service manager (systemctl) or orchestration tool (k8s)"
+    },
+    {
+      "id": "promet-011",
+      "domain": "Prometheus Fundamentals",
+      "question": "What HTTP method does Prometheus employ for performing scrapes?",
+      "answer": "HTTP GET method"
+    },
+    {
+      "id": "promet-012",
+      "domain": "Prometheus Fundamentals",
+      "question": "Which SD configuration is recommended for scraping EC2 instances?",
+      "answer": "ec2_sd_configs"
+    },
+    {
+      "id": "promet-013",
+      "domain": "Prometheus Fundamentals",
+      "question": "Which SD configuration is recommended for nodes of Elastic Kubernetes Service on AWS?",
+      "answer": "ec2_sd_configs"
+    },
+    {
+      "id": "promet-014",
+      "domain": "Prometheus Fundamentals",
+      "question": "What is the purpose of the scrape_interval configuration in Prometheus?",
+      "answer": "how frequently Prometheus collects and updates the metrics"
+    },
+    {
+      "id": "promet-015",
+      "domain": "Prometheus Fundamentals",
+      "question": "Which type of database does Prometheus utilize?",
+      "answer": "time-series database"
+    },
+    {
+      "id": "promet-016",
+      "domain": "Prometheus Fundamentals",
+      "question": "What component is responsible for collecting metrics from an instance and exposing them in a format that Prometheus expects?",
+      "answer": "Prometheus exporter"
+    },
+    {
+      "id": "promet-017",
+      "domain": "Prometheus Fundamentals",
+      "question": "Which component is suitable for collecting metrics from batch/cron jobs?",
+      "answer": "Pushgateway"
+    },
+    {
+      "id": "promet-018",
+      "domain": "Prometheus Fundamentals",
+      "question": "When is the configuration option honor_labels:true used?",
+      "answer": "Using honor_labels can make your collected metrics more informative and allow you to differentiate between different metrics coming from various sources or probe targets"
+    },
+    {
+      "id": "promet-019",
+      "domain": "Prometheus Fundamentals",
+      "question": "What is the purpose of port 9090/9093/9100/9091/9115 in Prometheus?",
+      "answer": "9090:prometheus-server, 9093:altermanger, 9100:node-exporter, 9091:pushgateway, 9115:blackbox-exporter"
+    },
+    {
+      "id": "promet-020",
+      "domain": "Prometheus Fundamentals",
+      "question": "what are 2 default metric labels?",
+      "answer": "instance and job"
+    },
+    {
+      "id": "promet-021",
+      "domain": "Prometheus Fundamentals",
+      "question": "Which of the file systems is recommended/supported by Prometheus?",
+      "answer": "ext4, XFS, and NTFS"
+    },
+    {
+      "id": "promet-022",
+      "domain": "Prometheus Fundamentals",
+      "question": "How can you configure a Blackbox Exporter probe to check the successful response of your servers to PING?",
+      "answer": "Internet Control Message Protocol (ICMP) -> prober:icmp"
+    },
+    {
+      "id": "promet-023",
+      "domain": "Prometheus Fundamentals",
+      "question": "How do you configure the targets that Prometheus should scrape?",
+      "answer": "scrape_configs > static_configs -> targets:xxx"
+    },
+    {
+      "id": "promet-024",
+      "domain": "Prometheus Fundamentals",
+      "question": "What is the agent deployment mode of Prometheus?",
+      "answer": "agent mode is a light promtheus mode, which is focused for remote-write (remote storage), service-discovery and scraping specially for edge-computing/IoT and reducing for querying, alerting and local storage"
+    },
+    {
+      "id": "promet-025",
+      "domain": "Prometheus Fundamentals",
+      "question": "Which CLI command is suitable for unit testing Prometheus rules?",
+      "answer": "./promtool test rules test.yml"
+    },
+    {
+      "id": "promet-026",
+      "domain": "Prometheus Fundamentals",
+      "question": "Which CLI command is suitable for checking validity of the config files?",
+      "answer": "./promtool check rules test.yml"
+    },
+    {
+      "id": "promet-027",
+      "domain": "Prometheus Fundamentals",
+      "question": "How do you define the targets with SD that Prometheus should collect metrics from?",
+      "answer": "scrape_configs and *_sd_configs on per-job basis"
+    },
+    {
+      "id": "promet-028",
+      "domain": "Prometheus Fundamentals",
+      "question": "How can you delete the specific time series metrics of Prometheus?",
+      "answer": "starting the server with the flag --web.enable-admin-api + curl - X POST -g 'http://localhost:9090/api/v1/admin/tsdb/delete_series?match[]={xxxx=\"yyy\"}'"
+    },
+    {
+      "id": "promet-029",
+      "domain": "Prometheus Fundamentals",
+      "question": "How can you delete the all time series metrics of Prometheus?",
+      "answer": "starting the server with the flag --web.enable-admin-api + $ curl -X POST -g 'http://localhost:9090/api/v1/admin/tsdb/clean_tombstones'"
+    },
+    {
+      "id": "promet-030",
+      "domain": "Prometheus Fundamentals",
+      "question": "Which format does file-based SD provide?",
+      "answer": "YAML and JSON"
+    },
+    {
+      "id": "promql-001",
+      "domain": "PromQL",
+      "question": "What is PromQL?",
+      "answer": "Query Language for Prometheus"
+    },
+    {
+      "id": "promql-002",
+      "domain": "PromQL",
+      "question": "What is histogram metric in Prometheus?",
+      "answer": "Histogramm samples observations (e.g. request durations or response sizes) and counts them in configurable buckets"
+    },
+    {
+      "id": "promql-003",
+      "domain": "PromQL",
+      "question": "Which 4 data types are used in PromQL?",
+      "answer": "Scalar, String, Instant Vector, Range Vector"
+    },
+    {
+      "id": "promql-004",
+      "domain": "PromQL",
+      "question": "What is the name of the vector in Prometheus that stores a single sample value?",
+      "answer": "Instant Vector"
+    },
+    {
+      "id": "promql-005",
+      "domain": "PromQL",
+      "question": "Which PromQL function is used to estimate the value of a time series at a future time, t seconds from the current time, based on the range vector v?",
+      "answer": "predict-linear()"
+    },
+    {
+      "id": "promql-006",
+      "domain": "PromQL",
+      "question": "Between what type of expressions can logical operators be defined?",
+      "answer": "boolean"
+    },
+    {
+      "id": "promql-007",
+      "domain": "PromQL",
+      "question": "Which function can be used to calculate the average of a range vector in Prometheus?",
+      "answer": "avg_over_time(metrics[x])"
+    },
+    {
+      "id": "promql-008",
+      "domain": "PromQL",
+      "question": "What is the diff between avg(...) and avg_over_time(...)?",
+      "answer": "avg_over_time(...) has range vector as input and returns range vector as output. avg(...) has instant vector as input and returns aggregated number."
+    },
+    {
+      "id": "promql-009",
+      "domain": "PromQL",
+      "question": "With which type of metrics is the rate(...) function primarily used in Prometheus?",
+      "answer": "rate(...) needs COUNTER type metrics"
+    },
+    {
+      "id": "promql-010",
+      "domain": "PromQL",
+      "question": "What does the term “offset” refer to in Prometheus?",
+      "answer": "offset refers to the past time as duration"
+    },
+    {
+      "id": "promql-011",
+      "domain": "PromQL",
+      "question": "What distinguishes the rate(...) and irate(...) query functions in Prometheus?",
+      "answer": "rate(...) calc avg rate of change of a time series over the specified time range, irate(...) calc avg rate of change of a time series at the last 2 data points"
+    },
+    {
+      "id": "promql-012",
+      "domain": "PromQL",
+      "question": "What distinguishes the rate(...) and deriv(...) query functions in Prometheus?",
+      "answer": "deriv(...) operates on gauge and rate(...) operates on counter"
+    },
+    {
+      "id": "promql-013",
+      "domain": "PromQL",
+      "question": "Which type of metric is suitable for measuring the internal temperature of a server?",
+      "answer": "guage"
+    },
+    {
+      "id": "promql-014",
+      "domain": "PromQL",
+      "question": "What is the data type of Prometheus metric values?",
+      "answer": "float64."
+    },
+    {
+      "id": "promql-015",
+      "domain": "PromQL",
+      "question": "How many unique series are generated by a histogram metric type?",
+      "answer": "<basename>_bucket, <basename>_sum and <basename>_count"
+    },
+    {
+      "id": "promql-016",
+      "domain": "PromQL",
+      "question": "What are the 4 components of the Prometheus metrics data model?",
+      "answer": "metric name, metrics label, timestamp, value"
+    },
+    {
+      "id": "promql-017",
+      "domain": "PromQL",
+      "question": "What is the difference between the ceil and floor functions?",
+      "answer": "floor(...) = round a number down, ceil(...) = round a number up"
+    },
+    {
+      "id": "promql-018",
+      "domain": "PromQL",
+      "question": "Which query function among the following returns a result of 1 in case the specified time series does not exist?",
+      "answer": "absent(...)"
+    },
+    {
+      "id": "promql-019",
+      "domain": "PromQL",
+      "question": "What is the logical/arithmetic/comparison binary operator?",
+      "answer": "logical => OR, AND, UNLESS, arithmetic => + - * / % ^, comparison => ==, !=, >, <, >=, <="
+    },
+    {
+      "id": "promql-020",
+      "domain": "PromQL",
+      "question": "What is the vector matching?",
+      "answer": "on, ignoring"
+    },
+    {
+      "id": "promql-021",
+      "domain": "PromQL",
+      "question": "What is the group modifiers?",
+      "answer": "a part of vector matching. on, ignoring + group_left, group_right"
+    },
+    {
+      "id": "promql-022",
+      "domain": "PromQL",
+      "question": "Which function is NOT using counter metrics? irate(), increase(), reset(), idelta(), avg(), rate()",
+      "answer": "idelta()"
+    },
+    {
+      "id": "promql-023",
+      "domain": "PromQL",
+      "question": "How to calc the time in days until the LAST certificate expiration?",
+      "answer": "max(cert_expiry - time()) / 86400"
+    },
+    {
+      "id": "promql-024",
+      "domain": "PromQL",
+      "question": "What is the dimensional aggregation?",
+      "answer": "sum(), min(), max(), avg(), count()"
+    },
+    {
+      "id": "promql-025",
+      "domain": "PromQL",
+      "question": "What is the significance of the double underscore “__” before a label name?",
+      "answer": "The label is a reserved label"
+    },
+    {
+      "id": "instru-001",
+      "domain": "Instrumentation and Exporters",
+      "question": "What is the HTTP headers to establish by Prometheus during each scrape?",
+      "answer": "X-Prometheus-Scrape-Timeout-Seconds"
+    },
+    {
+      "id": "instru-002",
+      "domain": "Instrumentation and Exporters",
+      "question": "Which 2 query parameters are required when configuring a Blackbox Exporter probe?",
+      "answer": "target + module"
+    },
+    {
+      "id": "instru-003",
+      "domain": "Instrumentation and Exporters",
+      "question": "What is the exposition format of Prometheus?",
+      "answer": "text-based format for exposing metrics"
+    },
+    {
+      "id": "instru-004",
+      "domain": "Instrumentation and Exporters",
+      "question": "Does Prometheus need to perform any format conversion on the metrics returned by a monitored Linux machine?",
+      "answer": "No"
+    },
+    {
+      "id": "instru-005",
+      "domain": "Instrumentation and Exporters",
+      "question": "What is the default endpoint that Prometheus uses to scrape the metrics from the target?",
+      "answer": "/metrics"
+    },
+    {
+      "id": "instru-006",
+      "domain": "Instrumentation and Exporters",
+      "question": "Where is the version of the Prometheus exporter typically defined?",
+      "answer": "build_info"
+    },
+    {
+      "id": "instru-007",
+      "domain": "Instrumentation and Exporters",
+      "question": "What is the most suitable exporter for monitoring an HTTP web server endpoint to verify that it returns a 200 status code?",
+      "answer": "Blackbox Exporter"
+    },
+    {
+      "id": "instru-008",
+      "domain": "Instrumentation and Exporters",
+      "question": "Which Prometheus exporter is recommended for monitoring network devices?",
+      "answer": "SNMP exporter"
+    },
+    {
+      "id": "instru-009",
+      "domain": "Instrumentation and Exporters",
+      "question": "Which networking protocol does Prometheus utilize for performing scrapes?",
+      "answer": "HTTP protocol"
+    },
+    {
+      "id": "instru-010",
+      "domain": "Instrumentation and Exporters",
+      "question": "What is the purpose of a Prometheus metrics registry?",
+      "answer": "Registry serves as a central repository for collecting, storing, and managing metrics"
+    },
+    {
+      "id": "instru-011",
+      "domain": "Instrumentation and Exporters",
+      "question": "What is the purpose or definition of a Prometheus exporter?",
+      "answer": "Exporter is responsible for collecting metrics from a specific system, application, or service and exposing them for Prometheus"
+    },
+    {
+      "id": "instru-012",
+      "domain": "Instrumentation and Exporters",
+      "question": "In what scenarios would you use the Blackbox Exporter?",
+      "answer": "Network Service Monitoring, Helth Check, Externe Monitoring"
+    },
+    {
+      "id": "instru-013",
+      "domain": "Instrumentation and Exporters",
+      "question": "How does Prometheus identify the scrape path for its targets?",
+      "answer": "scrape_configs > metrics_path: /metrics"
+    },
+    {
+      "id": "instru-014",
+      "domain": "Instrumentation and Exporters",
+      "question": "Which endpoints allows blackbox probing?",
+      "answer": "Blackbox Exporter allows blackbox probing of endpoints over HTTP, HTTPS, DNS, TCP, ICMP, gRPC"
+    },
+    {
+      "id": "instru-015",
+      "domain": "Instrumentation and Exporters",
+      "question": "In a scenario where you have a dynamic etcd database containing scrape targets for Prometheus, how should you configure service discovery?",
+      "answer": "file_sd_configs"
+    },
+    {
+      "id": "instru-016",
+      "domain": "Instrumentation and Exporters",
+      "question": "What are the 2 types of attributes that can be present in the /metrics endpoint?",
+      "answer": "HELP, TYPE"
+    },
+    {
+      "id": "instru-017",
+      "domain": "Instrumentation and Exporters",
+      "question": "Which exporter is the most suitable for monitoring Scala metrics among the following options?",
+      "answer": "JMX Exporter"
+    },
+    {
+      "id": "instru-018",
+      "domain": "Instrumentation and Exporters",
+      "question": "How to keep pushgateway job labels? normally there are overwritten",
+      "answer": "honor_labels:true"
+    },
+    {
+      "id": "instru-019",
+      "domain": "Instrumentation and Exporters",
+      "question": "How does Prometheus scrape the last batch job push time?",
+      "answer": ""
+    },
+    {
+      "id": "instru-020",
+      "domain": "Instrumentation and Exporters",
+      "question": "What is the 3 types of service system?",
+      "answer": ""
+    },
+    {
+      "id": "record-001",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "Is there a way to deactivate a specific route in Alertmanager for a specific time frame?",
+      "answer": "attribute in the route time_intervals ex. time_intervals: [holidays, offhours]. mute_time_interval is DEPRECATED."
+    },
+    {
+      "id": "record-002",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "What is considered a best practice when it comes to alerting in monitoring systems: focusing on alerting based on symptoms or alerting based on causes?",
+      "answer": "symptom-based and NOT causes-based"
+    },
+    {
+      "id": "record-003",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "What is the meaning of “alert symptoms” and “alert causes” in the context of monitoring systems?",
+      "answer": "sympton: The “what’s broken”, cause: “why broken”"
+    },
+    {
+      "id": "record-004",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "Which aspect, symptoms or causes, is more visible to customers in the context of an issue?",
+      "answer": "symptom is customer visible error"
+    },
+    {
+      "id": "record-005",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "What is the good naming convention for the recoring rules?",
+      "answer": "<<level>>:<<metric>>:<<operations>>, e.g.job:node_cpu_seconds:avg_idle"
+    },
+    {
+      "id": "record-006",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "What is the acknowledge-based throttling and Waht is the time-based throttling?",
+      "answer": "acknowledge-based = notifications for an alert are sent to the recipient only once until the alert is acknowledged or resolved"
+    },
+    {
+      "id": "record-007",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "What are the 3 statuses of a Prometheus alert?",
+      "answer": "time-based = timiting the rate of notifications based on a specific time interval (ex. goup_interval, scrape_interval)"
+    },
+    {
+      "id": "record-008",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "How can I use a PromQL query to retrieve the currently active alerts in Alertmanager?",
+      "answer": "firing, pending, inactive"
+    },
+    {
+      "id": "record-009",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "What is the recording rules in Prometheus?",
+      "answer": "Mene > Alerts > Query > ALERTS"
+    },
+    {
+      "id": "record-010",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "How to define the recording rules?",
+      "answer": "aggregate and filter metrics with PromQL and storing them into Prometheus DB"
+    },
+    {
+      "id": "record-011",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "Whas is the alert fatigue?",
+      "answer": "rules -> record: xxx,expr: xxx"
+    },
+    {
+      "id": "record-012",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "Which feature of Alertmanager is responsible for formatting and customizing the alerts?",
+      "answer": "Alert fatigue refers to a situation where individuals or teams become overwhelmed or desensitized by a large volume of alerts"
+    },
+    {
+      "id": "record-013",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "How can you configure Alertmanager to disable the grouping of alerts for a specific route effectively?",
+      "answer": "notification templates"
+    },
+    {
+      "id": "record-014",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "Which software is commonly used for visualizing Prometheus metrics?",
+      "answer": "group_by"
+    },
+    {
+      "id": "record-015",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "What does the term “inhibiting” refer to in the context of Alertmanager?",
+      "answer": "Grafana"
+    },
+    {
+      "id": "record-016",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "What is the format used for defining alerting rules?",
+      "answer": "Inhibiting refers to a feature that allows certain alerts to be stopped or prevented from generating notifications for a specified duration of time"
+    },
+    {
+      "id": "record-017",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "What is the significance of the for attribute in a Prometheus alert rule?",
+      "answer": "YAML"
+    },
+    {
+      "id": "record-018",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "How can you temporarily mute/snooze/suppress an alert during maintenance in Prometheus?",
+      "answer": "for allows for a delay or threshold before an alert is firing, helping to prevent false positives and reduce noise in alerting systems"
+    },
+    {
+      "id": "record-019",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "What is the name of Prometheus native dashboarding and visualization feature?",
+      "answer": "Slience"
+    },
+    {
+      "id": "record-020",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "How can you coordinate the simultaneous sending of multiple alerts with similar label sets in Prometheus?",
+      "answer": "Prometheus Console"
+    },
+    {
+      "id": "record-021",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "Which feature of Alertmanager is resonsilbe for sending alert to the right receiver?",
+      "answer": "Grouping"
+    },
+    {
+      "id": "record-022",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "What is the purpose of the repeat_interval/conitnue/group_wait/group_inteval attribute in an Alertmanager route configuration?",
+      "answer": "Routing"
+    },
+    {
+      "id": "record-023",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "Which 2 attributes of an alerting rule can be used to include extra metadata?",
+      "answer": "repeat_interval: is used to determine the wait time before a firing alert that has already been successfully"
+    },
+    {
+      "id": "record-024",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "What are required for a high-availability configuration of Alertmanager?",
+      "answer": "continue: specifies whether to continue processing subsequent routes after sending a notification for an alert"
+    },
+    {
+      "id": "record-025",
+      "domain": "Recording & Alerting & Dashboarding",
+      "question": "What are the 3 statuses of Alertmanager Silences?",
+      "answer": "group_wait: sets how long to initially wait to send a notification"
+    }
+  ]
+}
