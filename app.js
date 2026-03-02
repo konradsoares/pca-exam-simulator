@@ -4,8 +4,7 @@ let DATA = null;
 let state = {
   mode: "timed",
   version: "A",
-  count: 60,
-  studyMode: "normal",
+studyMode: "normal",
   examFile: "exam1.json",
   examQs: [],
   answers: {},
@@ -136,8 +135,7 @@ function resetAll() {
   state = {
     mode: $("mode").value,
     version: $("version").value,
-    count: (Number.isFinite(parseInt($("count").value, 10)) ? parseInt($("count").value, 10) : 60),
-    studyMode: $("studyMode").value,
+studyMode: $("studyMode").value,
     examFile: $("examFile")?.value || "exam1.json",
     examQs: [],
     answers: {},
@@ -418,12 +416,7 @@ async function startExam() {
   // Load the selected exam file every time (supports multiple exams)
   const payload = await loadQuestions(state.examFile);
   const allQs = normalizeQuestions(payload);
-
-  // If count says "All", use length; otherwise respect number
-  const desiredCount = state.count;
-  const finalCount = (Number.isFinite(desiredCount) ? Math.min(desiredCount, allQs.length) : allQs.length);
-
-  state.examQs = buildExamSet(allQs, state.version, finalCount);
+  state.examQs = buildExamSet(allQs, state.version, allQs.length);
 
   if (state.studyMode === "auto_answer_all") {
     autoAnswerAllCorrect();
@@ -437,21 +430,6 @@ async function startExam() {
 $("startBtn").addEventListener("click", startExam);
 $("resetBtn").addEventListener("click", resetAll);
 
-// When exam file changes, update the default count dropdown based on file size (best-effort)
-$("examFile")?.addEventListener("change", async () => {
-  try {
-    const payload = await loadQuestions($("examFile").value);
-    const allQs = normalizeQuestions(payload);
-    // If the count select has an "All" option, update its label
-    const countSel = $("count");
-    if (countSel) {
-      const allOpt = Array.from(countSel.options).find(o => o.value === "all");
-      if (allOpt) allOpt.textContent = `All (${allQs.length})`;
-    }
-  } catch (e) {
-    console.warn(e);
-  }
-});
 
 // Initial hint load for exam1.json (optional). If it fails, UI still works.
 loadQuestions("exam1.json").catch(() => {});
