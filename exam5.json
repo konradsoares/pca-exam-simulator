@@ -1,0 +1,602 @@
+[
+  {
+    "domain": "Observability Concepts",
+    "question": "What is the preferred approach used by Prometheus to collect metrics from a target?",
+    "correct_answer": "pull-based",
+    "incorrect_answers": [
+      "push-based",
+      "agent-based (sidecar collector)",
+      "log scraping"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What is the Observability?",
+    "correct_answer": "Observability: understand what’s happening inside a system and predict how it will behave in the future",
+    "incorrect_answers": [
+      "Monitoring is the ability to understand internal state",
+      "Telemetry is the ability to debug a system",
+      "Observability is only about dashboards"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What is RED Method?",
+    "correct_answer": "RED Method consists of: (Request) Rate + (Request) Errors + (Request) Duration",
+    "incorrect_answers": [
+      "Requests, Errors, Saturation",
+      "Rate, Exceptions, Duration",
+      "Readiness, Efficiency, Downtime"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What are the distinctions between SLO, SLI, and SLA?",
+    "correct_answer": "SLO: Service Level Objective (Goal), SLA: Service Level Agreement (Contract), SLI: Service Level Indicator (Metrics)",
+    "incorrect_answers": [
+      "SLA is the measured indicator; SLI is the contract; SLO is the penalty clause",
+      "SLI is the target; SLO is the measurement; SLA is the internal goal",
+      "SLO and SLA are the same; SLI is a log format"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "In the context of tracing, what is the meaning or representation of a span?",
+    "correct_answer": "Span is a single operation/unit of work within a distributed system and captures the start and end times, duration, and associated metadata of a specific operation",
+    "incorrect_answers": [
+      "Metrics (numeric value)",
+      "for monolith system",
+      "Logging, Trace and Metrics"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "In which scenarios is distributed tracing less beneficial or NOT as applicable?",
+    "correct_answer": "for monolith system",
+    "incorrect_answers": [
+      "In large microservice systems with many hops",
+      "When you only have batch jobs and no requests",
+      "When you need numeric time-series metrics"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What are typically tracked within a span of a trace?",
+    "correct_answer": "Operation Name, Trace ID and Span ID, Start and End Timestamps, Duration, Parent Span ID",
+    "incorrect_answers": [
+      "A complete end-to-end trace across services",
+      "A single log line",
+      "A metric sample at one timestamp"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What is the good and bad metric?",
+    "correct_answer": "bad: a metric with a lot fo variance and poor correlation with user experience, good: metric to set easier threashold for bcs there is no overlap at all.",
+    "incorrect_answers": [
+      "Good metrics are high-cardinality; bad metrics are low-cardinality",
+      "Good metrics are verbose logs; bad metrics are traces",
+      "Good metrics are always CPU usage; bad metrics are latency"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "Which type of data is monitored by Prometheus?",
+    "correct_answer": "Metrics (numeric value)",
+    "incorrect_answers": [
+      "Logs",
+      "Traces",
+      "Events"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "In the context of monitoring and observability, what type of data is typically used to define a SLI?",
+    "correct_answer": "SLI is typically derived from metrics",
+    "incorrect_answers": [
+      "pull-based",
+      "RED Method consists of: (Request) Rate + (Request) Errors + (Request) Duration",
+      "numeric time-series data point"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What is the meaning or purpose of an error budget policy?",
+    "correct_answer": "An error budget policy is a concept used in the context of SLOs and SLAs and is to define the acceptable level of errors or service disruptions that a system or service can experience within a given time period.",
+    "incorrect_answers": [
+      "numeric time-series data point",
+      "pull-based",
+      "for monolith system"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What is one advantage of the push model for recoring metrics compared to pull models?",
+    "correct_answer": "timely and proactive data collection (real-time or near real-time) / pushing into the centralized data system",
+    "incorrect_answers": [
+      "pull-based",
+      "Logging, Trace and Metrics",
+      "To gather and aggregate textual event data from a service for troubleshooting"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "How do Prometheus, ELK stack, and InfluxDB differ in terms of their functionalities and use cases?",
+    "correct_answer": "InfluxDB is a pull-based time-series database designed to handle high volumes of time-stamped data (IoT, Sensor, Analytics).",
+    "incorrect_answers": [
+      "Prometheus: logs; ELK: metrics; InfluxDB: tracing",
+      "All three are log search stacks",
+      "All three are identical TSDBs with PromQL"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What is the definition of a metric?",
+    "correct_answer": "ELK stack is a push-based system, used for collecting, processing, storing, and visualizing log data.",
+    "incorrect_answers": [
+      "numeric time-series data point",
+      "SLI is typically derived from metrics",
+      "Metrics (numeric value)"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What are the Prometheus exemplars?",
+    "correct_answer": "Prometheus is a pull-based time-series database and monitoring system specifically designed for monitoring dynamic cloud-native environments.",
+    "incorrect_answers": [
+      "Precomputed recording rules",
+      "Alert inhibition links",
+      "Remote write samples without labels"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What is one of the main purposes or goals of logging?",
+    "correct_answer": "numeric time-series data point",
+    "incorrect_answers": [
+      "pull-based",
+      "for monolith system",
+      "SLI is typically derived from metrics"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What are the 3 core components of observability?",
+    "correct_answer": "An exemplar is a specific trace representative of measurement taken in a given time interval and provides additional information about a specific data point.",
+    "incorrect_answers": [
+      "Metrics, alerts, dashboards",
+      "Logs, events, dashboards",
+      "Metrics, profiling, dashboards"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What is the Monitoring",
+    "correct_answer": "To gather and aggregate textual event data from a service for troubleshooting",
+    "incorrect_answers": [
+      "SLI is typically derived from metrics",
+      "for monolith system",
+      "Metrics (numeric value)"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What is the Telemetry?",
+    "correct_answer": "Logging, Trace and Metrics",
+    "incorrect_answers": [
+      "Manual debugging using breakpoints",
+      "A dashboarding tool like Grafana",
+      "A database schema for metrics"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What is the challenges of observability?",
+    "correct_answer": "Monitoring: continues observation of a system to detect and alert on abnormal behavior.",
+    "incorrect_answers": [
+      "Metrics (numeric value)",
+      "Logging, Trace and Metrics",
+      "numeric time-series data point"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What is the CLI utility tool for Prometheus called?",
+    "correct_answer": "promtool",
+    "incorrect_answers": [
+      "amtool",
+      "prometheusctl",
+      "grafanatool"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What are the limitations of Prometheus?",
+    "correct_answer": "scalability for large-scale deployments with millions of TS, Long-term storage, High cardinality, HA and Replication",
+    "incorrect_answers": [
+      "Built-in long-term storage and clustering by default",
+      "Designed primarily for logs and traces",
+      "Supports unlimited label cardinality without impact"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What is Service Discovery and which categories are there?",
+    "correct_answer": "SD is a mechanism that allow to automatically discover and monitor targets and services. There are 2 categories: top-down (e.i. ec2) and bottom-up (e.i. consol) mechanisms of static SD",
+    "incorrect_answers": [
+      "A way to store metrics in remote storage",
+      "A PromQL function for joining vectors",
+      "A method to generate dashboards automatically"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which property configures the timing to scrape metrics from targets?",
+    "correct_answer": "scrape_interval",
+    "incorrect_answers": [
+      "how frequently Prometheus collects and updates the metrics",
+      "promtool",
+      "scrape_configs"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which section in the Prometheus configuration file governs the selection of targets to be scraped?",
+    "correct_answer": "scrape_configs",
+    "incorrect_answers": [
+      "rule_files",
+      "remote_read",
+      "alerting"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which action in the label configuration is used to delete a specific target?",
+    "correct_answer": "scrape_configs -> relabel_configs -> action: drop or action: keep",
+    "incorrect_answers": [
+      "replace",
+      "labeldrop",
+      "hashmod"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "How is managed data retention in prometheus?",
+    "correct_answer": "with the flag --storage.tsdb.retention.time and --storage.tsdb.retention.size",
+    "incorrect_answers": [
+      "--web.enable-lifecycle",
+      "--query.timeout",
+      "--storage.remote.flush-deadline"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What are the essential 3 components of Prometheus?",
+    "correct_answer": "Retrieval, TSDB, HTTP Server",
+    "incorrect_answers": [
+      "scrape_configs and *_sd_configs on per-job basis",
+      "how frequently Prometheus collects and updates the metrics",
+      "./promtool check rules test.yml"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What is required to be able to reload Prometheus?",
+    "correct_answer": "with the flag --web.enable-lifecycle",
+    "incorrect_answers": [
+      "Enable federation mode",
+      "Enable WAL compression",
+      "Enable remote_read"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What are 3 methods to restart the Prometheus server?",
+    "correct_answer": "Sending a SIGHUP signal to the Prometheus process, Using the Prometheus API POST or PUT + /-/reload, Using a service manager (systemctl) or orchestration tool (k8s)",
+    "incorrect_answers": [
+      "promtool",
+      "scrape_configs and *_sd_configs on per-job basis",
+      "HTTP GET method"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What HTTP method does Prometheus employ for performing scrapes?",
+    "correct_answer": "HTTP GET method",
+    "incorrect_answers": [
+      "HTTP POST",
+      "HTTP PUT",
+      "HTTP HEAD"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which SD configuration is recommended for scraping EC2 instances?",
+    "correct_answer": "ec2_sd_configs",
+    "incorrect_answers": [
+      "kubernetes_sd_configs",
+      "dns_sd_configs",
+      "file_sd_configs"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which SD configuration is recommended for nodes of Elastic Kubernetes Service on AWS?",
+    "correct_answer": "ec2_sd_configs",
+    "incorrect_answers": [
+      "dns_sd_configs",
+      "file_sd_configs",
+      "with the flag --web.enable-lifecycle"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What is the purpose of the scrape_interval configuration in Prometheus?",
+    "correct_answer": "how frequently Prometheus collects and updates the metrics",
+    "incorrect_answers": [
+      "scrape_timeout",
+      "evaluation_interval",
+      "retention.time"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which type of database does Prometheus utilize?",
+    "correct_answer": "time-series database",
+    "incorrect_answers": [
+      "Logs",
+      "Traces",
+      "Events"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What component is responsible for collecting metrics from an instance and exposing them in a format that Prometheus expects?",
+    "correct_answer": "Prometheus exporter",
+    "incorrect_answers": [
+      "Pushgateway",
+      "Retrieval, TSDB, HTTP Server",
+      "HTTP GET method"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which component is suitable for collecting metrics from batch/cron jobs?",
+    "correct_answer": "Pushgateway",
+    "incorrect_answers": [
+      "Alertmanager",
+      "node_exporter",
+      "snmp_exporter"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "When is the configuration option honor_labels:true used?",
+    "correct_answer": "Using honor_labels can make your collected metrics more informative and allow you to differentiate between different metrics coming from various sources or probe targets",
+    "incorrect_answers": [
+      "It overwrites target labels with scrape labels",
+      "It drops all labels from targets",
+      "It only applies to recording rules"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What is the purpose of port 9090/9093/9100/9091/9115 in Prometheus?",
+    "correct_answer": "9090:prometheus-server, 9093:altermanger, 9100:node-exporter, 9091:pushgateway, 9115:blackbox-exporter",
+    "incorrect_answers": [
+      "9090 Alertmanager, 9093 Prometheus, 9100 Pushgateway, 9091 node_exporter, 9115 blackbox_exporter",
+      "9090 Grafana, 9093 Prometheus, 9100 Alertmanager, 9091 node_exporter, 9115 Pushgateway",
+      "9090 Prometheus, 9093 Grafana, 9100 node_exporter, 9091 blackbox_exporter, 9115 Pushgateway"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "what are 2 default metric labels?",
+    "correct_answer": "instance and job",
+    "incorrect_answers": [
+      "namespace and pod",
+      "cluster and node",
+      "service and endpoint"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which of the file systems is recommended/supported by Prometheus?",
+    "correct_answer": "ext4, XFS, and NTFS",
+    "incorrect_answers": [
+      "scrape_configs > static_configs -> targets:xxx",
+      "with the flag --web.enable-lifecycle",
+      "YAML and JSON"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "How can you configure a Blackbox Exporter probe to check the successful response of your servers to PING?",
+    "correct_answer": "Internet Control Message Protocol (ICMP) -> prober:icmp",
+    "incorrect_answers": [
+      "promtool",
+      "YAML and JSON",
+      "with the flag --storage.tsdb.retention.time and --storage.tsdb.retention.size"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "How do you configure the targets that Prometheus should scrape?",
+    "correct_answer": "scrape_configs > static_configs -> targets:xxx",
+    "incorrect_answers": [
+      "with the flag --storage.tsdb.retention.time and --storage.tsdb.retention.size",
+      "time-series database",
+      "scrape_interval"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What is the agent deployment mode of Prometheus?",
+    "correct_answer": "agent mode is a light promtheus mode, which is focused for remote-write (remote storage), service-discovery and scraping specially for edge-computing/IoT and reducing for querying, alerting and local storage",
+    "incorrect_answers": [
+      "with the flag --storage.tsdb.retention.time and --storage.tsdb.retention.size",
+      "promtool",
+      "./promtool test rules test.yml"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which CLI command is suitable for unit testing Prometheus rules?",
+    "correct_answer": "./promtool test rules test.yml",
+    "incorrect_answers": [
+      "scrape_configs > static_configs -> targets:xxx",
+      "scrape_interval",
+      "ext4, XFS, and NTFS"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which CLI command is suitable for checking validity of the config files?",
+    "correct_answer": "./promtool check rules test.yml",
+    "incorrect_answers": [
+      "scrape_configs",
+      "time-series database",
+      "Prometheus exporter"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "How do you define the targets with SD that Prometheus should collect metrics from?",
+    "correct_answer": "scrape_configs and *_sd_configs on per-job basis",
+    "incorrect_answers": [
+      "HTTP GET method",
+      "instance and job",
+      "scrape_configs -> relabel_configs -> action: drop or action: keep"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "How can you delete the specific time series metrics of Prometheus?",
+    "correct_answer": "starting the server with the flag --web.enable-admin-api + curl - X POST -g 'http://localhost:9090/api/v1/admin/tsdb/delete_series?match[]={xxxx=\"yyy\"}'",
+    "incorrect_answers": [
+      "Delete the WAL directory",
+      "Delete the console templates",
+      "Delete the scrape_configs section"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "How can you delete the all time series metrics of Prometheus?",
+    "correct_answer": "starting the server with the flag --web.enable-admin-api + $ curl -X POST -g 'http://localhost:9090/api/v1/admin/tsdb/clean_tombstones'",
+    "incorrect_answers": [
+      "scrape_interval",
+      "ext4, XFS, and NTFS",
+      "YAML and JSON"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which format does file-based SD provide?",
+    "correct_answer": "YAML and JSON",
+    "incorrect_answers": [
+      "Only YAML files",
+      "Only TOML files",
+      "Only CSV files"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "What is PromQL?",
+    "correct_answer": "Query Language for Prometheus",
+    "incorrect_answers": [
+      "A YAML configuration format for Prometheus",
+      "A log query language for ELK",
+      "An alert routing language for Alertmanager"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "What is histogram metric in Prometheus?",
+    "correct_answer": "Histogramm samples observations (e.g. request durations or response sizes) and counts them in configurable buckets",
+    "incorrect_answers": [
+      "A single gauge with labels for quantiles",
+      "A counter that resets every scrape",
+      "A log-derived metric stored as strings"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Which 4 data types are used in PromQL?",
+    "correct_answer": "Scalar, String, Instant Vector, Range Vector",
+    "incorrect_answers": [
+      "table, document, graph, blob",
+      "counter, gauge, histogram, summary",
+      "series, label, timestamp, value"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "What is the name of the vector in Prometheus that stores a single sample value?",
+    "correct_answer": "Instant Vector",
+    "incorrect_answers": [
+      "float64.",
+      "boolean",
+      "max(cert_expiry - time()) / 86400"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Which PromQL function is used to estimate the value of a time series at a future time, t seconds from the current time, based on the range vector v?",
+    "correct_answer": "predict-linear()",
+    "incorrect_answers": [
+      "avg_over_time(metrics[x])",
+      "<basename>_bucket, <basename>_sum and <basename>_count",
+      "Instant Vector"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Between what type of expressions can logical operators be defined?",
+    "correct_answer": "boolean",
+    "incorrect_answers": [
+      "Only between strings",
+      "Only between labels",
+      "Only between recording rules"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Which function can be used to calculate the average of a range vector in Prometheus?",
+    "correct_answer": "avg_over_time(metrics[x])",
+    "incorrect_answers": [
+      "avg()",
+      "sum()",
+      "max()"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "What is the diff between avg(...) and avg_over_time(...)?",
+    "correct_answer": "avg_over_time(...) has range vector as input and returns range vector as output. avg(...) has instant vector as input and returns aggregated number.",
+    "incorrect_answers": [
+      "avg_over_time aggregates across series; avg aggregates over time",
+      "They are identical functions",
+      "avg() only works on counters"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "With which type of metrics is the rate(...) function primarily used in Prometheus?",
+    "correct_answer": "rate(...) needs COUNTER type metrics",
+    "incorrect_answers": [
+      "Gauge",
+      "Histogram",
+      "Summary"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "What does the term “offset” refer to in Prometheus?",
+    "correct_answer": "offset refers to the past time as duration",
+    "incorrect_answers": [
+      "Shifts evaluation into the future",
+      "Changes scrape frequency",
+      "Renames labels during vector matching"
+    ]
+  }
+]
