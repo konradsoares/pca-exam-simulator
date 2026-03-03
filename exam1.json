@@ -462,7 +462,7 @@
   {
     "domain": "Prometheus Fundamentals",
     "question": "Which of the following are valid Prometheus label values? (Select all that apply.)",
-    "correct_answer": "$__maybe_valid, val, 2nd_label_value, label-value-1, val",
+    "correct_answer": "$__maybe_valid, 2nd_label_value, label-value-1, val",
     "incorrect_answers": [
       "$__maybe_valid",
       "val",
