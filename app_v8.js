@@ -542,19 +542,6 @@ async function startExam() {
 $("startBtn").addEventListener("click", startExam);
 $("resetBtn").addEventListener("click", resetAll);
 
-// Floating Finish Exam button (delegated so it always works even if the button is rendered later)
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.finishExamFloating');
-  if (!btn) return;
-  e.preventDefault();
-  e.stopPropagation();
-  // Only finish if an exam is active
-  if (state && Array.isArray(state.examQs) && state.examQs.length > 0) {
-    showResults();
-  }
-});
-
-
 
 // Initial hint load for exam1.json (optional). If it fails, UI still works.
 loadQuestions("exam1.json").catch(() => {});
