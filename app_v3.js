@@ -34,13 +34,6 @@ function pickN(arr, n) {
   return arr.slice(0, Math.min(n, arr.length));
 }
 
-function setsEqual(aSet, bSet) {
-  if (aSet.size !== bSet.size) return false;
-  for (const v of aSet) if (!bSet.has(v)) return false;
-  return true;
-}
-
-
 function escapeHtml(s) {
   return (s ?? "")
     .replaceAll("&", "&amp;")
@@ -70,72 +63,31 @@ function normalizeQuestions(payload) {
     const q = raw[i] || {};
     const domain = q.domain ?? q.dominio ?? "General";
     const question = q.question ?? q.pergunta ?? "";
-
-    const singleAnswer = q.correct_answer ?? q.answer ?? null;
-    const multiAnswers = Array.isArray(q.correct_answers) ? q.correct_answers : null;
+    const answer = q.correct_answer ?? q.answer ?? null;
+    const incorrect = q.incorrect_answers ?? [];
 
     if (!domainCounters[domain]) domainCounters[domain] = 0;
     domainCounters[domain] += 1;
 
+    // make an id if not present
     const slug = String(domain).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     const id = q.id ?? `${slug || "q"}-${String(domainCounters[domain]).padStart(3, "0")}`;
-
-    const isMulti = Boolean(multiAnswers) || /\(select all that apply\)/i.test(question);
-
-    const incorrect = Array.isArray(q.incorrect_answers) ? q.incorrect_answers : [];
-
-    let correctAnswers = null;
-    if (isMulti) {
-      if (multiAnswers) {
-        correctAnswers = multiAnswers.map(x => String(x ?? "").trim()).filter(Boolean);
-      } else if (singleAnswer) {
-        correctAnswers = String(singleAnswer).split(",").map(s => s.trim()).filter(Boolean);
-      } else {
-        correctAnswers = [];
-      }
-      const seen = new Set();
-      correctAnswers = correctAnswers.filter(x => (seen.has(x) ? false : (seen.add(x), true)));
-    }
 
     out.push({
       id,
       domain,
       question,
-      answer: isMulti ? null : singleAnswer,
-      incorrect_answers: incorrect,
-      isMulti,
-      correct_answers: correctAnswers,
+      answer,
+      incorrect_answers: Array.isArray(incorrect) ? incorrect : [],
     });
   }
-
-  return out.filter(x => x.question && (x.isMulti ? (x.correct_answers && x.correct_answers.length > 0) : x.answer));
+  return out.filter(x => x.question && x.answer); // ignore malformed rows
 }
 
 // Build choices from the provided incorrect answers (randomized) + correct answer
 function buildChoicesFromProvided(q) {
-  if (q.isMulti) {
-    const pool = [];
-
-    const addToken = (t) => {
-      const s = String(t ?? "").trim();
-      if (!s) return;
-      if (!pool.includes(s)) pool.push(s);
-    };
-
-    (q.correct_answers || []).forEach(addToken);
-
-    (q.incorrect_answers || []).forEach(v => {
-      String(v ?? "")
-        .split(",")
-        .map(x => x.trim())
-        .filter(Boolean)
-        .forEach(addToken);
-    });
-
-    return shuffle(pool);
-  }
-
   const incorrect = Array.isArray(q.incorrect_answers) ? q.incorrect_answers : [];
+  // Remove duplicates + remove correct answer if it somehow appears in incorrect
   const uniq = [];
   for (const opt of incorrect) {
     const t = String(opt ?? "").trim();
@@ -144,7 +96,9 @@ function buildChoicesFromProvided(q) {
     if (!uniq.includes(t)) uniq.push(t);
   }
 
+  // PCA-style question usually has 4 options; if fewer, keep what's available
   const pickedIncorrect = pickN(shuffle(uniq), 3);
+
   return shuffle([q.answer, ...pickedIncorrect]);
 }
 
@@ -209,22 +163,8 @@ function lockQuestion(qid, { expired=false } = {}) {
 function renderChoice(q, choiceText) {
   const qid = q.id;
   const a = state.answers[qid];
-
-  if (q.isMulti) {
-    const selected = new Set(a?.selected || []);
-    const lockedOptions = new Set(a?.lockedOptions || []);
-    const isChecked = selected.has(choiceText);
-    const isDisabled = lockedOptions.has(choiceText) || a?.expired;
-
-    return `
-      <label class="choice">
-        <input type="checkbox" name="q_${qid}" value="${escapeHtml(choiceText)}" ${isChecked ? "checked" : ""} ${isDisabled ? "disabled" : ""} />
-        <span>${escapeHtml(choiceText)}</span>
-      </label>
-    `;
-  }
-
   const locked = a?.locked;
+
   const checked = a?.selected === choiceText ? "checked" : "";
   const disabled = locked ? "disabled" : "";
 
@@ -237,43 +177,11 @@ function renderChoice(q, choiceText) {
 }
 
 function attachQuestionHandlers(container) {
-  container.querySelectorAll("input[type=radio], input[type=checkbox]").forEach(inp => {
+  container.querySelectorAll("input[type=radio]").forEach(inp => {
     inp.addEventListener("change", (e) => {
       const qid = e.target.name.replace("q_", "");
       const q = state.examQs.find(x => x.id === qid);
       if (!q) return;
-
-      if (q.isMulti) {
-        const choice = e.target.value;
-
-        if (!state.answers[qid]) {
-          state.answers[qid] = { selected: [], correct: false, locked: false, expired: false, lockedOptions: [] };
-        }
-
-        const selected = new Set(state.answers[qid].selected || []);
-        const lockedOptions = new Set(state.answers[qid].lockedOptions || []);
-
-        if (lockedOptions.has(choice) || state.answers[qid].expired) return;
-
-        if (e.target.checked) selected.add(choice);
-
-        // Lock this option so it cannot be toggled again
-        lockedOptions.add(choice);
-
-        const correctSet = new Set(q.correct_answers || []);
-        const isCorrectNow = setsEqual(selected, correctSet);
-
-        state.answers[qid] = {
-          ...state.answers[qid],
-          selected: Array.from(selected),
-          lockedOptions: Array.from(lockedOptions),
-          correct: isCorrectNow,
-        };
-
-        if (state.mode === "timed") renderTimed();
-        else renderUntimed();
-        return;
-      }
 
       if (state.answers[qid]?.locked) return;
 
@@ -338,8 +246,8 @@ function renderQuestionCard(q, showTimer) {
 
       <div id="ans_${q.id}" class="card ${ansHiddenClass}" style="margin-top:10px;">
         <div class="muted small">Official answer:</div>
-        <div><strong>${escapeHtml(q.isMulti ? (q.correct_answers || []).join(", ") : q.answer)}</strong></div>
-        ${selected ? `<div class="muted small" style="margin-top:8px;">Your answer: ${escapeHtml(Array.isArray(selected) ? selected.join(", ") : selected)}</div>` : ""}
+        <div><strong>${escapeHtml(q.answer)}</strong></div>
+        ${selected ? `<div class="muted small" style="margin-top:8px;">Your answer: ${escapeHtml(selected)}</div>` : ""}
       </div>
     </div>
   `;
@@ -360,16 +268,7 @@ function startTimerForQuestion(q) {
     remaining -= 1;
 
     if (remaining < 0) {
-      if (q.isMulti) {
-        if (!state.answers[qid]) state.answers[qid] = { selected: [], correct: false, locked: false, expired: false, lockedOptions: [] };
-        state.answers[qid].expired = true;
-        if (state.timers[qid]) {
-          clearInterval(state.timers[qid]);
-          delete state.timers[qid];
-        }
-      } else {
-        lockQuestion(qid, { expired: true });
-      }
+      lockQuestion(qid, { expired: true });
       renderTimed();
 
       if (state.currentIndex < state.examQs.length - 1) {
@@ -471,9 +370,7 @@ function showResults() {
     byDomain[d] = byDomain[d] || { total: 0, answered: 0, correct: 0 };
     byDomain[d].total += 1;
 
-    const hasSelection = Array.isArray(a?.selected) ? a.selected.length > 0 : Boolean(a?.selected);
-    const isLocked = Boolean(a?.locked) || Boolean(a?.expired) || (q.isMulti && (a?.lockedOptions?.length > 0));
-    if (hasSelection || isLocked) {
+    if (a?.locked) {
       byDomain[d].answered += 1;
       answered += 1;
       if (a.expired && !a.selected) expired += 1;

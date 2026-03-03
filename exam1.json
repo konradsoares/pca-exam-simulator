@@ -185,10 +185,9 @@
   },
   {
     "domain": "PromQL",
-    "question": "Let job=\"node\" represent a Node Exporter scrape.",
+    "question": "Let job=\"node\" represent a Node Exporter scrape. Which of the following queries gives the duration in seconds of the last scrape for each of the instances in the node job only?",
     "correct_answer": "scrape_duration_seconds{job=",
     "incorrect_answers": [
-      "Which of the following queries gives the duration in seconds of the last scrape for each of the instances in the node job only?",
       "last_scrape_duration{job=\"node\"}",
       "scrape_duration_seconds{job=\"node\"}",
       "scrape_duration_seconds",
