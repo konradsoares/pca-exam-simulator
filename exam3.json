@@ -1,0 +1,694 @@
+[
+  {
+    "domain": "Instrumentation and Exporters",
+    "question": "How is metrics instrumentation for Prometheus achieved?",
+    "correct_answer": "Using a Prometheus client library",
+    "incorrect_answers": [
+      "Using Grafana",
+      "Using a Prometheus exporter",
+      "Using InfluxDB injection"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Let http_requests_total be a counter metric representing the number of requests that have hit a given type of web server. Assume there are multiple instances of this type of server. Let this metric have a label called status_code where the values are HTTP status codes (200, 201, 404, etc).",
+    "correct_answer": "sum by (status_code) (rate(http_requests_total[5m])) * 60",
+    "incorrect_answers": [
+      "Which of the following queries yields the per-minute rate of requests broken down by status code?",
+      "sum on (status_code) (rate(http_requests_total[5m])) * 60",
+      "rate(http_requests_total[1m]) by (status_code)",
+      "sum by (status_code) (rate(http_requests_total[5m]))"
+    ]
+  },
+  {
+    "domain": "Instrumentation and Exporters",
+    "question": "You are instrumenting your application for Prometheus. This application generates GitHub issues when an alert is received from Alertmanager. Sometimes however, an issue fails to be created.",
+    "correct_answer": "Define two counter metrics, one for the total and the other for the failures. Calculate the number of successes as total – failures",
+    "incorrect_answers": [
+      "You want to monitor the total number of issues that attempt to get created as well as the proportion of requests that succeed and the proportion that fail.",
+      "How should you BEST go about this?",
+      "Define three counter metrics, one for the total, one for the successes and one for the failures",
+      "Define a single histogram metric that provides the total requests broken down by success and failure",
+      "Define a single summary metric that provides the total requests broken down by success and failure"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Which of the following queries contains a logical binary operator?",
+    "correct_answer": "up{job=\"node\", instance=\"node1\"} or up{job=\"node\", instance=\"node2\"}",
+    "incorrect_answers": [
+      "up{job=\"node\", instance=\"node1\"}[10m]",
+      "up{job=\"node\"} == 0",
+      "up{job=\"node\", instance=\"node1\"} + up{job=\"node\", instance=\"node2\"}"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Assuming the current epoch time is 1666150830, which of the following queries yields the value of the up metric at 1666150330, no matter when it is evaluated?",
+    "correct_answer": "up @ 1666150330",
+    "incorrect_answers": [
+      "up offset 5m",
+      "up{timestamp=\"1666150330\"}",
+      "up[5m]"
+    ]
+  },
+  {
+    "domain": "Alerting & Dashboarding",
+    "question": "What is necessary for a high-availability setup of Alertmanager? (Select all that apply.)",
+    "correct_answers": [
+      "Configuring the instances of Alertmanager to expose port 9094",
+      "Configuring the instances of Alertmanager with the addresses of their peers",
+      "Running multiple instances of Alertmanager"
+    ],
+    "incorrect_answers": [
+      "Configuring the instances of Alertmanager to expose port 9094",
+      "Configuring alerting clients to send to a single, static instance of Alertmanager",
+      "Configuring the instances of Alertmanager with the addresses of their peers",
+      "Running multiple instances of Alertmanager",
+      "Configuring the instances of Alertmanager to expose port 9094, Configuring alerting clients to send to a single, static instance of Alertmanager",
+      "Configuring the instances of Alertmanager to expose port 9094, Configuring the instances of Alertmanager with the addresses of their peers",
+      "Configuring the instances of Alertmanager to expose port 9094, Running multiple instances of Alertmanager",
+      "Configuring alerting clients to send to a single, static instance of Alertmanager, Configuring the instances of Alertmanager with the addresses of their peers",
+      "Configuring alerting clients to send to a single, static instance of Alertmanager, Running multiple instances of Alertmanager",
+      "Configuring the instances of Alertmanager with the addresses of their peers, Running multiple instances of Alertmanager",
+      "Configuring the instances of Alertmanager to expose port 9094, Configuring alerting clients to send to a single, static instance of Alertmanager, Configuring the instances of Alertmanager with the addresses of their peers",
+      "Configuring the instances of Alertmanager to expose port 9094, Configuring alerting clients to send to a single, static instance of Alertmanager, Running multiple instances of Alertmanager",
+      "Configuring alerting clients to send to a single, static instance of Alertmanager, Configuring the instances of Alertmanager with the addresses of their peers, Running multiple instances of Alertmanager",
+      "Configuring the instances of Alertmanager to expose port 9094, Configuring alerting clients to send to a single, static instance of Alertmanager, Configuring the instances of Alertmanager with the addresses of their peers, Running multiple instances of Alertmanager"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "What is the difference between the rate and deriv query functions?",
+    "correct_answer": "deriv operates on gauge metrics while rate operates on counter metrics",
+    "incorrect_answers": [
+      "rate operates on gauge metrics while deriv operates on counter metrics",
+      "deriv calculates the average rate of change whereas rate calculates the derivative (instantaneous rate of change)",
+      "rate calculates the average rate of change of a counter metric whereas deriv calculates the derivative (instantaneous rate of change) of a counter metric"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Let cert_expiry be a gauge metric whose value is a Unix timestamp (epoch time) representing the time a given certificate will expire.",
+    "correct_answer": "cert_expiry – time()",
+    "incorrect_answers": [
+      "Which of the following queries gives the time in seconds until certificate expiration?",
+      "cert_expiry - time(\"s\")",
+      "cert_expiry{unit=\"seconds\"}",
+      "cert_expiry"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "Which type of observability data is BEST represented by the following description?",
+    "correct_answer": "Log",
+    "incorrect_answers": [
+      "The server failed to process the request with ID 1382-129030.",
+      "Time Series",
+      "Metric",
+      "Trace"
+    ]
+  },
+  {
+    "domain": "Alerting & Dashboarding",
+    "question": "What is the meaning of the repeat_interval attribute in an Alertmanager route?",
+    "correct_answer": "How long to wait before sending a notification again if it has already been sent successfully for an alert",
+    "incorrect_answers": [
+      "How long to wait before sending a notification about new alerts that are added to a group of alerts for which an initial notification has already been sent",
+      "Whether an alert should continue matching subsequent sibling nodes",
+      "How long to initially wait to send a notification for a group of alerts"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What is the definition of a distributed trace?",
+    "correct_answer": "Activity of a transaction or request as it flows through applications and shows how services connect, including code-level details",
+    "incorrect_answers": [
+      "A textual representation of an event, commonly structured with key-value pairs",
+      "A numeric measurement recorded over time",
+      "A numeric measurement"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What does the Prometheus data model consist of?",
+    "correct_answer": "Metrics names, metric labels and samples",
+    "incorrect_answers": [
+      "Metric names, timestamps and floating point values",
+      "Metrics, logs and traces",
+      "Metric names, metric annotations and samples"
+    ]
+  },
+  {
+    "domain": "Alerting & Dashboarding",
+    "question": "Regarding alert symptoms and causes, which of the following is NOT true?",
+    "correct_answer": "Causes are a better way to capture more problems more comprehensively and robustly with less effort",
+    "incorrect_answers": [
+      "Symptoms correspond to consumer-visible issues",
+      "As a best practice, alerting should be done on symptoms, not causes",
+      "Causes relate to issues that underlie symptoms"
+    ]
+  },
+  {
+    "domain": "Instrumentation and Exporters",
+    "question": "You are responsible for providing monitoring in your organization which leverages two data centers for its operations. You run one instance of Prometheus and one instance of Blackbox Exporter in each data center. You want to configure a Blackbox Exporter probe that continually checks the health of the Prometheus instance in the opposite data center to ensure monitoring stays available.",
+    "correct_answer": "HTTP",
+    "incorrect_answers": [
+      "Which type of probe should you select for this scenario?",
+      "gRPC",
+      "ICMP",
+      "TCP"
+    ]
+  },
+  {
+    "domain": "Alerting & Dashboarding",
+    "question": "What do Alertmanager notification templates allow you to do?",
+    "correct_answer": "Notification templates allow you to customize the notifications sent to Alertmanager receivers using the Go templating language",
+    "incorrect_answers": [
+      "Notification templates allow you to dynamically determine the notification receiver by matching against alert labels",
+      "Notification templates allow you to template in alert rule labels or annotations",
+      "Notification templates allow you to create arbitrary consoles using the Go templating language"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Which of the following functions is NOT appropriate for use with counter metrics?",
+    "correct_answer": "idelta",
+    "incorrect_answers": [
+      "irate",
+      "increase",
+      "resets"
+    ]
+  },
+  {
+    "domain": "Instrumentation and Exporters",
+    "question": "Which of the following exporters is BEST for monitoring an HTTP web server endpoint to ensure that it returns a 200 status code?",
+    "correct_answer": "Blackbox Exporter",
+    "incorrect_answers": [
+      "HTTP Exporter",
+      "Node Exporter",
+      "SNMP Exporter"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "How do you specify which targets Prometheus should scrape?",
+    "correct_answer": "On a per-job basis in the Prometheus configuration file via the static_configs and *_sd_configs attributes",
+    "incorrect_answers": [
+      "Globally via the --target command line argument",
+      "Globally in the Prometheus configuration file via the static_configs and sd_configs attributes",
+      "Globally via the --service-discovery command line argument"
+    ]
+  },
+  {
+    "domain": "Alerting & Dashboarding",
+    "question": "Where are alerting rules defined?",
+    "correct_answer": "In designated files, referenced by the Prometheus configuration file",
+    "incorrect_answers": [
+      "Directly in the Alertmanager configuration file",
+      "In designated files, referenced by the Alertmanager --alerting-rules command line flag",
+      "In designated files, referenced by the Alertmanager configuration file"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Which of the following time durations is NOT valid for use in a range selector?",
+    "correct_answer": "1mo",
+    "incorrect_answers": [
+      "100ms",
+      "1y",
+      "1m30s"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which of the following CLI commands can be used for unit testing Prometheus rules?",
+    "correct_answer": "promtool test rules",
+    "incorrect_answers": [
+      "promutil check rules",
+      "promtool check rules",
+      "promutil test rules"
+    ]
+  },
+  {
+    "domain": "Alerting & Dashboarding",
+    "question": "As far as alert metadata goes, would “alert description” be more appropriate as a label or an annotation?",
+    "correct_answer": "Annotation",
+    "incorrect_answers": [
+      "Neither one would be acceptable",
+      "Label",
+      "Either one would be acceptable"
+    ]
+  },
+  {
+    "domain": "Instrumentation and Exporters",
+    "question": "How many uniquely-named series are generated by a histogram metric type and what form does it/do they take?",
+    "correct_answer": "3, <basename>_bucket, <basename>_sum, and <basename>_count",
+    "incorrect_answers": [
+      "1, <basename>",
+      "3, <basename>_sum, <basename>_count, and <basename>{quantile=\"<φ>\"}",
+      "1, <basename>_bucket"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "Which of the following types of observability data is MOST closely related to the definition given below?",
+    "correct_answer": "Metric",
+    "incorrect_answers": [
+      "A numeric measurement",
+      "Time Series",
+      "Time Table",
+      "Event"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which of the following is NOT a configurable scrape attribute?",
+    "correct_answer": "SMTP Host",
+    "incorrect_answers": [
+      "Timeout",
+      "Interval",
+      "Proxy URL"
+    ]
+  },
+  {
+    "domain": "Alerting & Dashboarding",
+    "question": "Which of the following components is responsible for evaluating alerting rules?",
+    "correct_answer": "Prometheus",
+    "incorrect_answers": [
+      "Exporters",
+      "Pushgateway",
+      "Alertmanager"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "How does Prometheus determine the path on which to scrape targets?",
+    "correct_answer": "Via the per-job metrics_path attribute in the Prometheus configuration file",
+    "incorrect_answers": [
+      "Via the globally configured metrics_path attribute in the Prometheus configuration file",
+      "Via the per-job --metrics-path-<job> command line flag",
+      "Via the globally configured --metrics-path command line flag"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Which of the following query functions can be used to forecast the future value of a time series?",
+    "correct_answer": "predict_linear",
+    "incorrect_answers": [
+      "estimate",
+      "forecast",
+      "learn"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What is required to be able to reload Prometheus via its /-/reload endpoint?",
+    "correct_answer": "Set the --web.enable-lifecycle command line flag",
+    "incorrect_answers": [
+      "Set the global attribute enable_reload: true in the Prometheus configuration file",
+      "Set the --web.enable-admin-api command line flag",
+      "Send a SIGHUP to the Prometheus process"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Given the following two time series, and assuming a scrape interval of 1m , what is the result of the query given below?",
+    "correct_answer": "{job=\"node\", instance=\"node1\"} 0.6",
+    "incorrect_answers": [
+      "Series:",
+      "up{job=\"node\", instance=\"node1\"} 0 1 1 0 1",
+      "up{job=\"node\", instance=\"node2\"} 1 0 1 1 1",
+      "Query: avg_over_time(up{job=\"node\"}[5m])",
+      "{job=\"node\"} 0.5 0.5 1 0.5 1",
+      "{job=\"node\"} 0.7",
+      "up{job=\"node\"} 0.5 0.5 1 0.5 1",
+      "{job=\"node\", instance=\"node2\"} 0.8"
+    ]
+  },
+  {
+    "domain": "Instrumentation and Exporters",
+    "question": "You are writing a Prometheus exporter to expose metrics regarding cryptocurrency you own.",
+    "correct_answer": "transactions_total, Counter",
+    "incorrect_answers": [
+      "Which of the following metric names and types should be used to represent the number of transactions you have made?",
+      "transactions, Summary",
+      "transactions, Gauge",
+      "transactions_total, Gauge"
+    ]
+  },
+  {
+    "domain": "Alerting & Dashboarding",
+    "question": "What is Alertmanager?",
+    "correct_answer": "A component of the Prometheus stack used for delivering alert notifications",
+    "incorrect_answers": [
+      "A component of the Prometheus stack used for visualizing metrics",
+      "A component of the Prometheus stack used for ingesting metrics",
+      "A component of the Prometheus stack used for sending alerts to Prometheus"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "Which of the following is a benefit of the push model of metrics ingestion?",
+    "correct_answer": "All monitoring targets can configure the same centralized point of ingestion",
+    "incorrect_answers": [
+      "There is a slightly lower probability of DDoS-ing your monitoring compared to the pull model",
+      "Push-based monitoring does not scale",
+      "Push-based monitoring provides a built-in way to determine if a service is down"
+    ]
+  },
+  {
+    "domain": "Instrumentation and Exporters",
+    "question": "Which of the following describes the summary metric type?",
+    "correct_answer": "Samples numerical observations and calculates configurable quantiles over a sliding time window",
+    "incorrect_answers": [
+      "Represents a monotonically increasing numerical value",
+      "Samples numerical observations and counts them in configurable buckets",
+      "Represents a single numerical value that can arbitrarily go up or down"
+    ]
+  },
+  {
+    "domain": "Instrumentation and Exporters",
+    "question": "You are creating an exporter that exposes Prometheus metrics from your fitness tracking app.",
+    "correct_answer": "Gauge",
+    "incorrect_answers": [
+      "Which metric type would be BEST for a metric called heart_rate_bpm that tracks your heart rate in beats per minute?",
+      "Info",
+      "Counter",
+      "Summary"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Given the following two time series, what is the result of the query given below?",
+    "correct_answer": "{job=\"node\", instance=\"node3\"} 1",
+    "incorrect_answers": [
+      "Series:",
+      "up{job=\"node\", instance=\"node1\"} 0 1 1 0 1",
+      "up{job=\"node\", instance=\"node2\"} 1 0 1 1 1",
+      "Query: absent(up{job=\"node\", instance=\"node3\"})",
+      "up{job=\"node\", instance=\"node1\"} 0",
+      "up{job=\"node\", instance=\"node2\"} 0",
+      "up{job=\"node\", instance=\"node3\"} 1",
+      "{} 1"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What networking protocol does Prometheus use to perform scrapes?",
+    "correct_answer": "HTTP",
+    "incorrect_answers": [
+      "SNMP",
+      "UDP",
+      "MQTT"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What does the Prometheus scrape timeout represent?",
+    "correct_answer": "How long to wait for a response before giving up on a scrape",
+    "incorrect_answers": [
+      "How long to wait to start scraping after initialization",
+      "How long to wait before persisting scrape metrics",
+      "How long to wait in between scrapes of a particular target"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What is an exemplar?",
+    "correct_answer": "A reference to some external data associated with a time series, commonly a trace",
+    "incorrect_answers": [
+      "The time series with the minimum value for a metric",
+      "A reference to some external data associated with a log, commonly a trace",
+      "The time series with the maximum value for a metric"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "Which of the following tools is represented by the description below?",
+    "correct_answer": "SLO",
+    "incorrect_answers": [
+      "We aim for our service to maintain at least 99.9% availability on a 28 day rolling window.",
+      "Error Budget",
+      "SLA",
+      "SLI"
+    ]
+  },
+  {
+    "domain": "Instrumentation and Exporters",
+    "question": "You are instrumenting an HTTP API with Prometheus metrics. You want to be able to get the rate in requests per day made to your API.",
+    "correct_answer": "Define a counter metric called http_requests_total, use the PromQL rate function to calculate the requests per second and multiply by 86400 to get the per-day request rate",
+    "incorrect_answers": [
+      "What is the BEST way to accomplish this?",
+      "Define a gauge metric called http_requests_per_day, query directly via PromQL",
+      "Define a counter metric called http_requests_total, use the PromQL rate function to calculate the requests per day",
+      "Define a counter metric called http_requests_total, use the PromQL rate function to calculate the requests per second and divide by 86400 to get the per-day request rate"
+    ]
+  },
+  {
+    "domain": "Alerting & Dashboarding",
+    "question": "In Grafana, what visualization would be MOST appropriate for displaying the memory utilization of a server over time?",
+    "correct_answer": "Time Series",
+    "incorrect_answers": [
+      "Gauge",
+      "Table",
+      "Heatmap"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which of the following BEST describes the purpose of Prometheus?",
+    "correct_answer": "Prometheus aggregates time series metrics for visualization and alerting on applications and infrastructure",
+    "incorrect_answers": [
+      "Prometheus aggregates traces for a high level view of applications and infrastructure including bottlenecks and areas experiencing errors",
+      "Prometheus aggregates application and infrastructure logs for easy troubleshooting and root cause analysis",
+      "Prometheus aggregates events that are filtered and produce notifications to analysts about issues with applications or infrastructure"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Which of the following queries contains a comparison binary operator?",
+    "correct_answer": "up{job=\"node\"} == 0",
+    "incorrect_answers": [
+      "up{job=\"node\", instance=\"node1\"} or up{job=\"node\", instance=\"node2\"}",
+      "up{job=\"node\", instance=\"node1\"} + up{job=\"node\", instance=\"node2\"}",
+      "up{job=\"node\", instance=\"node1\"}[10m]"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Which of the following queries contains a vector matching?",
+    "correct_answer": "method_code:http_errors:rate5m{code=\"500\"} / ignoring(code) method:http_requests:rate5m",
+    "incorrect_answers": [
+      "sum without (instance) (http_requests_total)",
+      "sum by (app, proc) (instance_memory_limit_bytes – instance_memory_usage_bytes) / 1024 / 1024",
+      "count_values(\"version\", build_version)"
+    ]
+  },
+  {
+    "domain": "Alerting & Dashboarding",
+    "question": "Consider the following Alertmanager routing configuration.",
+    "correct_answer": "b-team-page",
+    "incorrect_answers": [
+      "route:",
+      "receiver: a-team-email",
+      "routes:",
+      "- receiver: a-team-page",
+      "matchers:",
+      "- severity=~\"high|critical\"",
+      "- receiver: b-team-email",
+      "- service=\"db\"",
+      "- receiver: b-team-page",
+      "- env=\"prod\"",
+      "Given an alert with the following labels, to which receiver will the alert be routed?",
+      "alertname: database-down",
+      "env: prod",
+      "service: db",
+      "severity: medium",
+      "a-team-page",
+      "a-team-email",
+      "b-team-email"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "Which of the following is an objective of logging?",
+    "correct_answer": "Aggregate textual event data from a service for troubleshooting",
+    "incorrect_answers": [
+      "Measure numerical aspects of a system for anomaly detection",
+      "Measure numerical aspects of a system for straightforward alerting",
+      "Identify bottlenecks in a multi-service transaction"
+    ]
+  },
+  {
+    "domain": "Alerting & Dashboarding",
+    "question": "Which attribute(s) of an alerting rule allow adding additional metadata? (Select all that apply.)",
+    "correct_answers": [
+      "labels",
+      "annotations"
+    ],
+    "incorrect_answers": [
+      "labels",
+      "template",
+      "annotations",
+      "metadata",
+      "meta",
+      "labels, template",
+      "labels, metadata",
+      "labels, meta",
+      "template, annotations",
+      "template, metadata",
+      "template, meta",
+      "annotations, metadata",
+      "annotations, meta",
+      "metadata, meta",
+      "labels, template, annotations",
+      "labels, template, metadata",
+      "labels, template, meta",
+      "labels, annotations, metadata",
+      "labels, annotations, meta",
+      "labels, metadata, meta",
+      "template, annotations, metadata",
+      "template, annotations, meta",
+      "template, metadata, meta",
+      "annotations, metadata, meta",
+      "labels, template, annotations, metadata",
+      "labels, template, annotations, meta",
+      "labels, template, metadata, meta",
+      "labels, annotations, metadata, meta",
+      "template, annotations, metadata, meta",
+      "labels, template, annotations, metadata, meta"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Let http_requests_total be a counter metric representing the number of requests that have hit a given type of web server. Assume there are multiple instances of this type of server. Let this metric have a label called status_code where the values are HTTP status codes (200, 201, 404, etc).",
+    "correct_answer": "sum(rate(http_requests_total[5m] offset 1d))",
+    "incorrect_answers": [
+      "Which of the following queries yields the total 5-minute rate of requests from exactly one day prior?",
+      "sum_over_time(http_requests_total[1d])",
+      "rate(http_requests_total{status_code=\"*\"}[1d])",
+      "sum(rate(http_requests_total[5m])) offset 1d"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "How are Service Level Indicators MOST commonly defined?",
+    "correct_answer": "Using metrics",
+    "incorrect_answers": [
+      "Using traces",
+      "Using logs",
+      "Using chaos engineering"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Let cert_expiry be a gauge metric whose value is a Unix timestamp (epoch time) representing the time a given certificate will expire. Assume this metric is being monitored for several different instances.",
+    "correct_answer": "max(cert_expiry - time()) / 86400",
+    "incorrect_answers": [
+      "Which of the following queries yields the time in days until the LAST certificate expiration?",
+      "min(cert_expiry - time()) / 86400",
+      "min(cert_expiry – time())",
+      "max(cert_expiry - time())"
+    ]
+  },
+  {
+    "domain": "Instrumentation and Exporters",
+    "question": "You are instrumenting an HTTP API with Prometheus metrics. You want to define a metric that tracks the latency of HTTP requests made to your API. You desire to arbitrarily break down the latency into percentiles at query time, such as the 90th and 99th.",
+    "correct_answer": "http_request_duration_seconds, Histogram",
+    "incorrect_answers": [
+      "Which of the following metric names and types is the MOST appropriate for this scenario?",
+      "http_request_duration_milliseconds, Histogram",
+      "http_request_duration_milliseconds, Summary",
+      "http_request_duration_seconds, Summary"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Say you have a dynamic etcd database that contains scrape targets for Prometheus.",
+    "correct_answer": "Write a program that periodically retrieves the targets from etcd and writes them to files according to the static_configs schema. Configure the scrape job to reference those files via file_sd_configs.",
+    "incorrect_answers": [
+      "How should you configure service discovery in this scenario?",
+      "Write a program that periodically retrieves the targets from etcd and writes them to static_configs in the scrape configuration",
+      "Use the built-in etcd_sd_configs scrape attribute",
+      "Use the built-in kubernetes_sd_configs scrape attribute"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "Which Prometheus relabeling configuration can be used to scrape a subset of all discovered targets for a job via modulo division?",
+    "correct_answer": "Two relabel_configs, one with action hashmod and the other with action keep or drop",
+    "incorrect_answers": [
+      "One relabel_config with action modulus",
+      "One relabel_config with action hashmod",
+      "Two relabel_configs, one with action modulus and the other with action keep or drop"
+    ]
+  },
+  {
+    "domain": "Prometheus Fundamentals",
+    "question": "What is the difference between an agent deployment of Prometheus and a regular deployment?",
+    "correct_answer": "The Agent mode of Prometheus disables querying, alerting and local storage whereas the normal mode of Prometheus has each of these enabled",
+    "incorrect_answers": [
+      "There is no such thing as Prometheus agent mode",
+      "The Agent mode of Prometheus enables querying, alerting and local storage whereas the normal mode of Prometheus disables each of these",
+      "The Agent mode optimizes Prometheus for the remote read use case"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Given the histogram metric http_request_duration_seconds, which of the following queries gives the median of request durations over the last five minutes?",
+    "correct_answer": "histogram_quantile(0.5, rate(http_request_duration_seconds_bucket[5m]))",
+    "incorrect_answers": [
+      "rate(http_request_duration_seconds_sum[5m]) / rate(http_request_duration_seconds_count[5m])",
+      "med(http_request_duration_seconds[5m])",
+      "avg_over_time(http_request_duration_seconds[5m])"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "What is the definition of an error budget policy?",
+    "correct_answer": "A set of actions to be taken when an SLO or SLA has been breached",
+    "incorrect_answers": [
+      "The maximum time a system can be down without violating an SLA",
+      "A set of actions to be taken when an SLI has been breached",
+      "The maximum time a system can be down without violating an SLO"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Let a Node Exporter scrape job be denoted by the label job=\"node\". Assume there are many instances of this scrape.",
+    "correct_answer": "avg(scrape_duration_seconds{job=\"node\"})",
+    "incorrect_answers": [
+      "Which of the following queries yields the average duration of the last scrape across all instances?",
+      "avg_over_time(scrape_duration_seconds{job=\"node\"}[1m])",
+      "avg by (instance) (scrape_duration_seconds{job=\"node\"})",
+      "avg(timestamp(up{job=\"node\"}))"
+    ]
+  },
+  {
+    "domain": "PromQL",
+    "question": "Given the following two time series, what is the result of the query given below?",
+    "correct_answer": "{} 2",
+    "incorrect_answers": [
+      "Series:",
+      "up{job=\"node\", instance=\"node1\"} 0 1 1 0 1",
+      "up{job=\"node\", instance=\"node2\"} 1 0 1 1 1",
+      "Query: sum(up)",
+      "{job=\"node\"} 2",
+      "{job=\"node\", instance=\"node1\"} 3",
+      "{job=\"node\", instance=\"node2\"} 4",
+      "up{job=\"node\", instance=\"node1\"} 1",
+      "up{job=\"node\", instance=\"node2\"} 1"
+    ]
+  },
+  {
+    "domain": "Observability Concepts",
+    "question": "Which of the following is NOT a benefit of service discovery?",
+    "correct_answer": "It is easier to tell and alert about a service not being deployed compared to static configuration of targets",
+    "incorrect_answers": [
+      "As new service instances are spun up, they are monitored automatically",
+      "As service instances are spun down, monitoring is automatically stopped",
+      "In large environments, hundreds or thousands of targets do not need to be statically configured"
+    ]
+  }
+]
