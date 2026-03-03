@@ -410,11 +410,7 @@ function renderTimed() {
 
   $("prevBtn").onclick = () => { state.currentIndex -= 1; renderTimed(); };
   $("nextBtn").onclick = () => { state.currentIndex += 1; renderTimed(); };
-  
-document.querySelectorAll('#finishBtn, .finishExamFloating').forEach(btn => {
-  btn.onclick = () => showResults();
-});
-
+  $("finishBtn").onclick = () => showResults();
 
   attachQuestionHandlers(exam);
   startTimerForQuestion(q);
@@ -441,11 +437,7 @@ function renderUntimed() {
     </section>
   `;
 
-  
-document.querySelectorAll('#finishBtn, .finishExamFloating').forEach(btn => {
-  btn.onclick = () => showResults();
-});
-
+  $("finishBtn").onclick = () => showResults();
   attachQuestionHandlers(exam);
 }
 
