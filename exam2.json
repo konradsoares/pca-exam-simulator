@@ -283,11 +283,11 @@
   },
   {
     "domain": "PromQL",
-    "question": "Given the following time series and assuming a scrape interval of 1m, what is the result of the query given below?",
-    "correct_answer": "{job=\"node\", instance=\"node1\"} 5",
+    "question": "Given the following time series and assuming a scrape interval of 1m, what is the result of the query given below? Series: up{job=\"node\", instance=\"node1\"} 0 1 1 1 0, up{job=\"node\", instance=\"node2\"} 1 1 1 1 1 - Query: count_over_time(up[5m])",
+    "correct_answer": "{job=\"node\", instance=\"node1\"} 5, {job=\"node\", instance=\"node2\"} 5",
     "incorrect_answers": [
       "{} 5",
-      "{job="
+      "up{job=\"node\", instance=\"node1\"} 5, up{job=\"node\", instance=\"node2\"} 5"
     ]
   },
   {
@@ -372,10 +372,11 @@
   },
   {
     "domain": "PromQL",
-    "question": "Given the following time series and assuming a scrape interval of 1m, what is the result of the query given below?",
+    "question": "Given the following time series and assuming a scrape interval of 1m, what is the result of the query given below? Series: up{job=\"node\", instance=\"node1\"} 0 1 1 1 0 , up{job=\"node\", instance=\"node2\"} 1 1 1 1 1 - Query: sum(up{job=\"node\"}) / count(up{job=\"node\"})",
     "correct_answer": "{} 0.5",
     "incorrect_answers": [
-      "{job="
+      "up{job=\"node\", instance=\"node1\"} 0.6, up{job=\"node\", instance=\"node2\"} 1",
+      "{job=\"node\", instance=\"node1\"} 0.6, {job=\"node\", instance=\"node2\"} 1"
     ]
   },
   {
@@ -489,10 +490,12 @@
   },
   {
     "domain": "PromQL",
-    "question": "Given the following time series and assuming a scrape interval of 1m, what is the result of the query given below?",
+    "question": "Given the following time series and assuming a scrape interval of 1m, what is the result of the query given below? Series: up{job=\"node\", instance=\"node1\"} 0 1 1 1 0 - up{job=\"node\", instance=\"node2\"} 1 1 1 1 1 - Query: count(up) by (job)",
     "correct_answer": "{job=\"node\"} 2",
     "incorrect_answers": [
-      "{} 2"
+      "{} 2",
+      "up{job=\"node\", instance=\"node1\"} 5, up{job=\"node\", instance=\"node2\"} 5",
+      "{job=\"node\", instance=\"node1\"} 5, {job=\"node\", instance=\"node2\"} 5"
     ]
   },
   {
