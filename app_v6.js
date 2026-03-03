@@ -193,15 +193,7 @@ studyMode: $("studyMode").value,
   $("results").classList.add("hidden");
   $("exam").innerHTML = "";
   $("results").innerHTML = "";
-  setFloatingFinishVisible(false);
 }
-
-function setFloatingFinishVisible(visible) {
-  const btn = document.querySelector(".finishExamFloating");
-  if (!btn) return;
-  btn.style.display = visible ? "block" : "none";
-}
-
 
 function lockQuestion(qid, { expired=false } = {}) {
   if (!state.answers[qid]) state.answers[qid] = { selected: null, correct: false, locked: false, expired: false };
@@ -408,7 +400,7 @@ function renderTimed() {
         <div class="row">
           <button id="prevBtn" class="secondary" ${state.currentIndex === 0 ? "disabled" : ""}>Previous</button>
           <button id="nextBtn" class="secondary" ${state.currentIndex === state.examQs.length - 1 ? "disabled" : ""}>Next</button>
-          
+          <button id="finishBtn">Finish Exam</button>
         </div>
       </div>
       <hr/>
@@ -419,7 +411,12 @@ function renderTimed() {
   $("prevBtn").onclick = () => { state.currentIndex -= 1; renderTimed(); };
   $("nextBtn").onclick = () => { state.currentIndex += 1; renderTimed(); };
   
-attachQuestionHandlers(exam);
+document.querySelectorAll('#finishBtn, .finishExamFloating').forEach(btn => {
+  btn.onclick = () => showResults();
+});
+
+
+  attachQuestionHandlers(exam);
   startTimerForQuestion(q);
 }
 
@@ -436,7 +433,7 @@ function renderUntimed() {
           <div class="muted">${state.examQs.length} questions • Answer locks when selected</div>
         </div>
         <div class="row">
-          
+          <button id="finishBtn">Finish Exam</button>
         </div>
       </div>
       <hr/>
@@ -445,7 +442,11 @@ function renderUntimed() {
   `;
 
   
-attachQuestionHandlers(exam);
+document.querySelectorAll('#finishBtn, .finishExamFloating').forEach(btn => {
+  btn.onclick = () => showResults();
+});
+
+  attachQuestionHandlers(exam);
 }
 
 function autoAnswerAllCorrect() {
@@ -528,8 +529,6 @@ async function startExam() {
   const allQs = normalizeQuestions(payload);
   state.examQs = buildExamSet(allQs, state.version, allQs.length);
 
-  setFloatingFinishVisible(true);
-
   if (state.studyMode === "auto_answer_all") {
     autoAnswerAllCorrect();
   }
@@ -545,7 +544,3 @@ $("resetBtn").addEventListener("click", resetAll);
 
 // Initial hint load for exam1.json (optional). If it fails, UI still works.
 loadQuestions("exam1.json").catch(() => {});
-
-
-// Hide floating finish until an exam is started
-setFloatingFinishVisible(false);
